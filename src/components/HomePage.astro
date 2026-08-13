@@ -2,10 +2,9 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from './Container.astro';
-import JournalEntryPreview from './JournalEntryPreview.astro';
 import ProjectPreview from './ProjectPreview.astro';
 import LatelyItem from './LatelyItem.astro';
-import { prefixFor, type Lang } from '../lib/i18n';
+import { journalType, prefixFor, type Lang } from '../lib/i18n';
 
 interface Props {
 	lang: Lang;
@@ -15,6 +14,12 @@ interface Props {
 
 const { lang, projects, journal } = Astro.props;
 const prefix = prefixFor(lang);
+const latest = journal[0];
+const latestSection = latest?.data.type === 'movie' ? 'movies' : latest?.data.type === 'book' ? 'books' : 'writings';
+const latestHref = latest ? `${prefix}/${latestSection}/${latest.data.slug}` : `${prefix}/writings`;
+const latestDate = latest && new Intl.DateTimeFormat(lang === 'es' ? 'es-BO' : 'en-US', {
+	month: '2-digit', day: '2-digit', year: '2-digit', timeZone: 'UTC',
+}).format(latest.data.date).replaceAll('/', '.');
 
 const copy = lang === 'es' ? {
 	title: 'Pabs File — Un archivo humano en progreso',
@@ -30,26 +35,9 @@ const copy = lang === 'es' ? {
 	stamp: 'HECHO POR UNA PERSONA',
 	projectsTitle: 'Cosas que construyo',
 	projectsKicker: 'proyectos / intentos / accidentes útiles',
-	writingsTitle: 'Último ruido',
-	writingsKicker: 'notas / ensayos / devlogs',
-	writingsScrap: 'ESCRIBIR PARA NO OLVIDAR EN QUÉ ESTABA PENSANDO',
-	moviesTitle: 'Películas',
-	moviesKicker: 'películas sobre las que tengo opiniones',
-	movieFeatureLabel: 'movie log / próximo rastro',
-	movieFeatureTitle: 'Una película en la que no puedo dejar de pensar',
-	movieFeatureBody: 'Qué funcionó, qué me molestó, la imagen que se quedó conmigo y la pregunta que la película se negó a responder.',
-	movieQuickLabel: 'toma rápida / sin voz de crítico',
-	movieQuickTitle: 'Hermosa. Confusa. Valió la pena.',
-	movieQuickBody: '“Entendí quizá el 70% y estoy eligiendo creer que eso era parte de la experiencia.”',
-	movieTicket: 'FUNCIÓN ÚNICA / FILA ? / ASIENTO ? / GUARDAR DESPUÉS DE VER',
-	booksTitle: 'Libros',
-	booksKicker: 'fragmentos / márgenes / ideas robadas',
-	bookFeatureLabel: 'leyendo ahora / lápiz obligatorio',
-	bookFeatureTitle: 'Subrayarlo todo.',
-	bookFeatureBody: 'Un registro vivo puede guardar citas, desacuerdos, preguntas, conexiones extrañas y las ideas que todavía no sé explicar.',
-	bookNoteLabel: 'nota al margen',
-	bookNoteTitle: 'La idea que me robé de este libro',
-	bookNoteBody: 'No todos los libros necesitan una reseña. A veces una sola idea cambia la forma de mirar algo.',
+	latestLabel: 'recién archivado',
+	latestCta: 'Abrir la última entrada',
+	latestNote: 'NUEVO / TODAVÍA ESTOY PENSANDO EN ESTO',
 	latelyTitle: 'Últimamente',
 	latelyKicker: 'una foto borrosa del presente',
 	lately: [
@@ -75,26 +63,9 @@ const copy = lang === 'es' ? {
 	stamp: 'MADE BY A PERSON',
 	projectsTitle: 'Things I build',
 	projectsKicker: 'projects / attempts / useful accidents',
-	writingsTitle: 'Latest noise',
-	writingsKicker: 'notes / essays / devlogs',
-	writingsScrap: 'WRITING SO I DON’T FORGET WHAT I WAS THINKING',
-	moviesTitle: 'Movies',
-	moviesKicker: 'films I have opinions about',
-	movieFeatureLabel: 'movie log / next trace',
-	movieFeatureTitle: 'A movie I can’t stop thinking about',
-	movieFeatureBody: 'What worked, what annoyed me, the image that stayed, and the question the movie refused to answer.',
-	movieQuickLabel: 'quick take / no critic voice',
-	movieQuickTitle: 'Beautiful. Confusing. Worth it.',
-	movieQuickBody: '“I understood maybe 70% of it and I’m choosing to believe that was part of the experience.”',
-	movieTicket: 'ONE SCREENING / ROW ? / SEAT ? / KEEP AFTER WATCHING',
-	booksTitle: 'Books',
-	booksKicker: 'fragments / margins / stolen ideas',
-	bookFeatureLabel: 'currently reading / pencil required',
-	bookFeatureTitle: 'Underline everything.',
-	bookFeatureBody: 'A living reading log can hold quotes, disagreements, questions, strange connections, and ideas I still cannot explain.',
-	bookNoteLabel: 'margin note',
-	bookNoteTitle: 'The idea I stole from this book',
-	bookNoteBody: 'Not every book needs a review. Sometimes a single idea changes the way I look at something.',
+	latestLabel: 'freshly archived',
+	latestCta: 'Open the latest entry',
+	latestNote: 'NEW / STILL THINKING ABOUT THIS',
 	latelyTitle: 'Lately',
 	latelyKicker: 'a blurry picture of right now',
 	lately: [
@@ -132,6 +103,20 @@ const copy = lang === 'es' ? {
 		</Container>
 	</section>
 
+	{latest && (
+		<section class="latest-drop-section">
+			<Container>
+				<a class="latest-drop" href={latestHref}>
+					<span class="latest-side-note">{copy.latestNote}</span>
+					<span class="latest-meta">{copy.latestLabel} / {journalType[lang][latest.data.type]} / {latestDate}</span>
+					<strong>{latest.data.title}</strong>
+					<span class="latest-description">{latest.data.description}</span>
+					<span class="latest-cta">{copy.latestCta} →</span>
+				</a>
+			</Container>
+		</section>
+	)}
+
 	<section class="section">
 		<Container>
 			<div class="section-heading">
@@ -142,71 +127,6 @@ const copy = lang === 'es' ? {
 				{projects.length > 0 ? projects.slice(0, 2).map((entry, index) => <ProjectPreview {entry} {lang} featured={index === 0} />) : (
 					<p class="empty-note">{lang === 'es' ? 'Este espacio está esperando su primer proyecto.' : 'This space is waiting for its first project.'}</p>
 				)}
-			</div>
-		</Container>
-	</section>
-
-	<section class="section writings-section" id="writings">
-		<Container>
-			<div class="section-heading">
-				<h2>{copy.writingsTitle}</h2>
-				<span class="section-kicker">{copy.writingsKicker}</span>
-			</div>
-			<div class="writings-desk">
-				<div class="writing-scrap" aria-hidden="true">{copy.writingsScrap}</div>
-				<div class="trace-grid">
-				{journal.filter((entry) => !['movie', 'book'].includes(entry.data.type)).length > 0 ? journal.filter((entry) => !['movie', 'book'].includes(entry.data.type)).slice(0, 4).map((entry, index) => <JournalEntryPreview {entry} {lang} featured={index === 0} />) : (
-					<p class="empty-note">{lang === 'es' ? 'La primera huella todavía se está escribiendo.' : 'The first trace is still being written.'}</p>
-				)}
-				</div>
-			</div>
-		</Container>
-	</section>
-
-	<section class="section movies-section" id="movies">
-		<Container>
-			<div class="section-heading movie-heading">
-				<h2>{copy.moviesTitle}</h2>
-				<span class="section-kicker">{copy.moviesKicker}</span>
-			</div>
-			<div class="movie-desk">
-				<div class="movie-ticket" aria-hidden="true">{copy.movieTicket}</div>
-				<article class="movie-note movie-feature">
-					<span class="label">{copy.movieFeatureLabel}</span>
-					<h3>{copy.movieFeatureTitle}</h3>
-					<p>{copy.movieFeatureBody}</p>
-					<div class="rating" aria-label="four out of five">★★★★☆ <small>4/5</small></div>
-				</article>
-				<article class="movie-note movie-quick">
-					<span class="label">{copy.movieQuickLabel}</span>
-					<h3>{copy.movieQuickTitle}</h3>
-					<p>{copy.movieQuickBody}</p>
-					<div class="rating" aria-label="three and a half out of five">★★★½</div>
-				</article>
-				<div class="movie-stamp" aria-hidden="true">WATCH / FEEL / ARGUE / REWATCH</div>
-			</div>
-		</Container>
-	</section>
-
-	<section class="section books-section" id="books">
-		<Container>
-			<div class="section-heading">
-				<h2>{copy.booksTitle}</h2>
-				<span class="section-kicker">{copy.booksKicker}</span>
-			</div>
-			<div class="book-desk">
-				<article class="book-scrap book-feature">
-					<span class="label">{copy.bookFeatureLabel}</span>
-					<h3>{copy.bookFeatureTitle}</h3>
-					<p>{copy.bookFeatureBody}</p>
-					<div class="pencil-line" aria-hidden="true"></div>
-				</article>
-				<article class="book-scrap book-margin">
-					<span class="label">{copy.bookNoteLabel}</span>
-					<h3>{copy.bookNoteTitle}</h3>
-					<p>{copy.bookNoteBody}</p>
-				</article>
-				<div class="book-spine" aria-hidden="true">READ / MARK / FOLD / RETURN</div>
 			</div>
 		</Container>
 	</section>

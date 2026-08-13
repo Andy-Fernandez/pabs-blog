@@ -1,0 +1,74 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from './Container.astro';
+import { formatDate, prefixFor, type Lang } from '../lib/i18n';
+
+interface Props {
+	lang: Lang;
+	type: 'movie' | 'book';
+	entries: CollectionEntry<'journal'>[];
+}
+
+const { lang, type, entries } = Astro.props;
+const prefix = prefixFor(lang);
+const isMovie = type === 'movie';
+const copy = lang === 'es'
+	? isMovie ? {
+		title: 'Películas', eyebrow: 'mirar / sentir / discutir / volver a mirar',
+		description: 'Películas que se quedaron conmigo, imágenes que regresan y opiniones que probablemente cambien.',
+		meta: 'película sobre la que tengo opiniones', cta: 'Leer notas de la película', empty: 'La primera película todavía está esperando.',
+	} : {
+		title: 'Libros', eyebrow: 'leer / marcar / doblar / devolver',
+		description: 'Ideas subrayadas, desacuerdos, páginas dobladas y libros que cambiaron algo en mi forma de mirar.',
+		meta: 'fragmentos / márgenes / ideas robadas', cta: 'Abrir las notas', empty: 'El primer libro todavía está esperando.',
+	}
+	: isMovie ? {
+		title: 'Movies', eyebrow: 'watch / feel / argue / rewatch',
+		description: 'Films that stayed with me, images that return, and opinions that will probably change.',
+		meta: 'films I have opinions about', cta: 'Read the movie notes', empty: 'The first movie is still waiting.',
+	} : {
+		title: 'Books', eyebrow: 'read / mark / fold / return',
+		description: 'Underlined ideas, disagreements, folded pages, and books that changed something in the way I look.',
+		meta: 'fragments / margins / stolen ideas', cta: 'Open the notes', empty: 'The first book is still waiting.',
+	};
+---
+
+<BaseLayout
+	title={`${copy.title} — Pabs File`}
+	description={copy.description}
+	{lang}
+	switchHref={`${lang === 'es' ? '' : '/es'}/${type === 'movie' ? 'movies' : 'books'}`}
+>
+	<Container class="page-hero media-page-hero">
+		<span class="eyebrow">{copy.eyebrow}</span>
+		<h1 class="page-title">{copy.title}</h1>
+		<p class="page-deck">{copy.description}</p>
+	</Container>
+
+	<section class:list={['section', isMovie ? 'movies-section' : 'books-section']}>
+		<Container>
+			<div class="section-heading">
+				<h2>{lang === 'es' ? 'Entradas' : 'Entries'}</h2>
+				<span class="section-kicker">{copy.meta}</span>
+			</div>
+
+			{entries.length === 0 ? <p class="empty-note">{copy.empty}</p> : (
+				<div class:list={['media-entry-list', isMovie ? 'movie-entry-list' : 'book-entry-list']}>
+					{entries.map((entry, index) => (
+						<article class:list={[isMovie ? 'movie-note' : 'book-scrap', 'media-entry-card', { 'media-entry-featured': index === 0 }]}>
+							<div class="meta-line">
+								<span>{entry.data.label ?? type}</span><span>/</span><time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
+							</div>
+							<h3>{entry.data.title}</h3>
+							{entry.data.subject && <p class="entry-subject">{entry.data.subject}{entry.data.author ? ` — ${entry.data.author}` : ''}</p>}
+							<p>{entry.data.description}</p>
+							{entry.data.rating && <div class="rating" aria-label={`${entry.data.rating} out of 5`}>{'★'.repeat(entry.data.rating)}{'☆'.repeat(5 - entry.data.rating)} <small>{entry.data.rating}/5</small></div>}
+							<a class="media-entry-link" href={`${prefix}/${isMovie ? 'movies' : 'books'}/${entry.data.slug}`}>{copy.cta} →</a>
+						</article>
+					))}
+				</div>
+			)}
+		</Container>
+	</section>
+</BaseLayout>

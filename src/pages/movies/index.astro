@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import MediaIndexPage from '../../components/MediaIndexPage.astro';
+
+const entries = (await getCollection('journal', ({ data }) => data.language === 'en' && !data.draft && data.type === 'movie'))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<MediaIndexPage lang="en" type="movie" {entries} />

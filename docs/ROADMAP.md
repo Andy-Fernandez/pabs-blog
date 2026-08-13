@@ -101,6 +101,8 @@ strong preference yet; it can be changed later.
 - [x] Build `/projects/[slug]`
 - [x] Build `/writings`
 - [x] Build `/writings/[slug]`
+- [x] Build distinct `/movies` and `/movies/[slug]` views
+- [x] Build distinct `/books` and `/books/[slug]` views
 - [x] Build a simple `404` page
 
 ### 4. Reusable Components

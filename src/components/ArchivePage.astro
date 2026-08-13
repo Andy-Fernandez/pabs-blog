@@ -12,6 +12,10 @@ interface Props {
 
 const { lang, journal, projects } = Astro.props;
 const prefix = prefixFor(lang);
+const journalHref = (entry: CollectionEntry<'journal'>) => {
+	const section = entry.data.type === 'movie' ? 'movies' : entry.data.type === 'book' ? 'books' : 'writings';
+	return `${prefix}/${section}/${entry.data.slug}`;
+};
 
 const items = [
 	...journal.map((entry) => ({
@@ -19,7 +23,7 @@ const items = [
 		date: formatDate(entry.data.date, lang),
 		kind: journalType[lang][entry.data.type],
 		title: entry.data.title,
-		href: `${prefix}/writings/${entry.data.slug}`,
+		href: journalHref(entry),
 	})),
 	...projects.map((entry) => ({
 		timestamp: new Date(`${entry.data.year}-01-01T00:00:00`).valueOf(),

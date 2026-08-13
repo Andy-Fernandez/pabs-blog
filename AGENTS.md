@@ -168,6 +168,12 @@ Possible routes:
 
 /writings
 /writings/[slug]
+
+/movies
+/movies/[slug]
+
+/books
+/books/[slug]
 ```
 
 Journal filtering can eventually provide views such as:
