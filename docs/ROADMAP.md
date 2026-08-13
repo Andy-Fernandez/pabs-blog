@@ -20,19 +20,37 @@ Version 1 is ready when someone can:
 Only decide what is needed for V1. Use the recommended option when there is no
 strong preference yet; it can be changed later.
 
+### Confirmed
+
+- [x] **Languages:** English and Spanish
+  - V1 approach: entries may be written in either language and will declare their
+    language in the content metadata. Do not require every entry to be translated.
+- [x] **Display name:** `Pablo Fernandez (Pabs)`
+- [x] **Homepage introduction (working copy):**
+  `Hi this is me Pabs love create, feel and innate observer`
+  - Preserve this voice for now. Review the final wording when the real homepage
+    content is added.
+- [x] **Visual personality:** monochrome Spider-Punk editorial fanzine
+  - Use photocopy and halftone texture, mixed heavy sans-serif and typewriter
+    typography, sharp or torn edges, collage layers, and occasional sticker-like
+    elements.
+  - Keep the expressive treatment controlled around long-form writing so Journal
+    entries remain comfortable to read.
+- [x] **Core palette:** white `#FFFFFF`, black `#000000`, and newspaper gray
+  `#1A1A1A`
+  - Treat black and white as the main contrast. Add another accent color later only
+    if it has a clear purpose.
+- [x] **Architecture and deployment:** static Astro site on a simple static host
+- [x] **Analytics:** Cloudflare Web Analytics
+  - Use its basic page views, visits, top URLs, and referrers. This is enough for V1
+    and does not require a custom analytics dashboard.
+
 ### Needed Before Design
 
-- [ ] **Primary language:** English, Spanish, or bilingual
-  - Recommended: choose one primary language for V1.
-- [ ] **Display name:** decide how the name appears in the header and page title
-  - Recommended: `Pablo Fernandez` unless another public name feels more natural.
-- [ ] **Short introduction:** write 1-3 sentences for the homepage
-- [ ] **Visual personality:** choose a general direction
-  - Recommended: an editorial personal notebook with strong typography, generous
-    whitespace, restrained color, and real project or journal images.
-- [ ] **Accent color:** choose one recognizable accent color
-  - Recommended: start with one accent and neutral background, text, and border
-    colors. Avoid building a large theme system.
+- [ ] Decide how bilingual navigation labels should appear
+  - Recommended: keep navigation labels concise and avoid displaying two full
+    interfaces at once. Confirm this when the first page is designed.
+- [ ] Decide whether the homepage introduction appears in English, Spanish, or both
 
 ### Needed Before Adding Content
 
@@ -45,11 +63,8 @@ strong preference yet; it can be changed later.
 
 ### Needed Before Launch
 
-- [ ] Choose a hosting provider
-  - Recommended: use a simple static Astro deployment.
+- [ ] Choose the specific static hosting provider
 - [ ] Choose the initial domain or temporary deployment URL
-- [ ] Decide whether basic privacy-friendly analytics are needed
-  - Recommended: launch without analytics unless there is a current reason for it.
 
 ## Build Checklist
 
@@ -62,12 +77,14 @@ strong preference yet; it can be changed later.
 - [ ] Create `Header`, `Footer`, and `Container`
 - [ ] Add reusable page title, description, and Open Graph metadata
 - [ ] Replace the starter favicon
+- [ ] Add a reduced-motion mode for any collage or sticker animation
 
 ### 2. Content
 
 - [ ] Create the `projects` content collection
 - [ ] Create the `journal` content collection
 - [ ] Add simple schemas in `src/content.config.ts`
+- [ ] Add `language: en | es` to project and journal content
 - [ ] Support journal types: thought, movie, book, cooking, tech, and life
 - [ ] Exclude draft content from production pages
 - [ ] Add the first real project and journal entry early to guide the design
@@ -108,6 +125,8 @@ strong preference yet; it can be changed later.
 - [ ] Confirm every public page has a useful title and description
 - [ ] Run `npm run build`
 - [ ] Review the production build in a browser
+- [ ] Add the Cloudflare Web Analytics beacon to the shared layout
+- [ ] Verify visits and page views after the first production deployment
 - [ ] Deploy the site
 
 ## Not In V1
