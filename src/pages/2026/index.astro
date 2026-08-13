@@ -1,0 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+import ArchivePage from '../../components/ArchivePage.astro';
+
+const journal = await getCollection('journal', ({ data }) => data.language === 'en' && !data.draft && data.date.getFullYear() === 2026);
+const projects = await getCollection('projects', ({ data }) => data.language === 'en' && !data.draft && data.year === 2026);
+---
+
+<ArchivePage lang="en" {journal} {projects} />

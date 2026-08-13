@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { prefixFor, ui, type Lang } from '../lib/i18n';
+
+interface Props {
+	entry: CollectionEntry<'projects'>;
+	lang: Lang;
+	featured?: boolean;
+}
+
+const { entry, lang, featured = false } = Astro.props;
+const copy = ui[lang];
+---
+
+<article class:list={['project-card', { featured }]}>
+	<div class="meta-line">
+		<span>{lang === 'es' ? 'proyecto' : 'project'}</span><span>/</span><span>{entry.data.status}</span><span>/</span><span>{entry.data.year}</span>
+	</div>
+	<h3>{entry.data.title}</h3>
+	<p>{entry.data.description}</p>
+	<a class="card-link" href={`${prefixFor(lang)}/projects/${entry.data.slug}`}>{copy.view} →</a>
+</article>

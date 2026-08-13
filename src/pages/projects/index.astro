@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import ProjectPreview from '../../components/ProjectPreview.astro';
+
+const entries = (await getCollection('projects', ({ data }) => data.language === 'en' && !data.draft))
+	.sort((a, b) => b.data.year - a.data.year || Number(b.data.featured) - Number(a.data.featured));
+---
+
+<BaseLayout title="Projects — Pabs File" description="Things I intentionally built, including the useful, the experimental, and the still becoming." lang="en" switchHref="/es/projects">
+	<Container class="page-hero">
+		<span class="eyebrow">made on purpose / mostly</span>
+		<h1 class="page-title">Projects</h1>
+		<p class="page-deck">Things I intentionally built. Not just what they use, but why they exist, what was difficult, and what they changed in me.</p>
+	</Container>
+	<section class="section">
+		<Container>
+			<div class="project-grid">
+				{entries.map((entry, index) => <ProjectPreview {entry} lang="en" featured={index === 0} />)}
+			</div>
+		</Container>
+	</section>
+</BaseLayout>

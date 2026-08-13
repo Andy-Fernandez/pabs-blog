@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, journalType, prefixFor, ui, type Lang } from '../lib/i18n';
+
+interface Props {
+	entry: CollectionEntry<'journal'>;
+	lang: Lang;
+	featured?: boolean;
+}
+
+const { entry, lang, featured = false } = Astro.props;
+const copy = ui[lang];
+---
+
+<article class:list={['journal-card', { featured }]}>
+	<div class="meta-line">
+		<span>{journalType[lang][entry.data.type]}</span><span>/</span><time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
+	</div>
+	<h3>{entry.data.title}</h3>
+	<p>{entry.data.description}</p>
+	<a class="card-link" href={`${prefixFor(lang)}/journal/${entry.data.slug}`}>{copy.read} →</a>
+</article>

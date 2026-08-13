@@ -25,6 +25,19 @@ The goal is to let someone understand not only what I do, but also how I think a
 
 # Core Idea
 
+## Guiding Principle
+
+> **The connection between everything here is me.**
+
+The website is a living archive of who Pablo is and who he is becoming. It must
+not present identity as finished or perfectly coherent. Preserve traces of the
+process: finished work, attempts, mistakes, changing opinions, ordinary moments,
+and unfinished questions. The handmade fanzine language is not a decorative skin;
+it communicates that the archive was made by a person and is allowed to change.
+
+When design or architecture decisions are unclear, prefer the option that makes
+the site feel more like memory in motion and less like a conventional portfolio.
+
 The website revolves around two main concepts:
 
 ```text

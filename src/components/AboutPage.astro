@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from './Container.astro';
+import type { Lang } from '../lib/i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const copy = lang === 'es' ? {
+	title: 'Sobre mí — Pabs File',
+	description: 'Pablo Fernandez (Pabs): creador, persona curiosa y observador en movimiento.',
+	eyebrow: 'expediente personal / todavía abierto',
+	heading: 'Hola. Soy Pabs.',
+	deck: 'Me gusta crear, sentir y observar. Esta página no intenta resumirme: intenta guardar las huellas que voy dejando.',
+	body: [
+		['No soy una lista de herramientas', 'Construyo software y proyectos digitales, pero no quiero que las tecnologías sean el centro de mi historia. Me interesan las decisiones, las obsesiones, las preguntas y las cosas que un proyecto me obliga a aprender.'],
+		['Tengo más de un tema', 'Puedo llegar por el código y quedarme pensando en una película, una receta, un libro o una idea que apareció caminando por La Paz. No necesito separar esas partes en identidades distintas. Todas son formas de mirar.'],
+		['Este lugar recuerda por mí', 'Con el tiempo, este archivo debería guardar versiones anteriores de mí: lo que sabía, lo que todavía no entendía, lo que estaba construyendo y aquello que alguna vez me importó mucho.'],
+	],
+	quote: 'No intento presentar una versión perfecta de mí. Intento conservar las huellas del proceso.',
+} : {
+	title: 'About — Pabs File',
+	description: 'Pablo Fernandez (Pabs): maker, curious person, and observer in motion.',
+	eyebrow: 'personal file / still open',
+	heading: 'Hi. I’m Pabs.',
+	deck: 'I love to create, feel, and observe. This page is not trying to summarize me; it is trying to keep the traces I leave behind.',
+	body: [
+		['I am not a list of tools', 'I build software and digital projects, but I do not want technologies to sit at the center of my story. I care about the decisions, obsessions, questions, and things a project forces me to learn.'],
+		['I have more than one subject', 'I may arrive through code and stay to think about a film, a recipe, a book, or an idea that appeared while walking through La Paz. I do not need to split those parts into different identities. They are all ways of looking.'],
+		['This place remembers for me', 'Over time, this archive should preserve earlier versions of me: what I knew, what I still did not understand, what I was building, and what once mattered to me very much.'],
+	],
+	quote: 'I am not trying to present a perfect version of myself. I am trying to preserve the traces of the process.',
+};
+---
+
+<BaseLayout title={copy.title} description={copy.description} {lang} switchHref={lang === 'es' ? '/about' : '/es/about'}>
+	<Container class="page-hero">
+		<span class="eyebrow">{copy.eyebrow}</span>
+		<h1 class="page-title">{copy.heading}</h1>
+		<p class="page-deck">{copy.deck}</p>
+	</Container>
+
+	<div class="content-body-wrap">
+		<Container>
+			<div class="prose">
+				{copy.body.map(([heading, body]) => (
+					<section>
+						<h2>{heading}</h2>
+						<p>{body}</p>
+					</section>
+				))}
+				<blockquote>{copy.quote}</blockquote>
+			</div>
+		</Container>
+	</div>
+</BaseLayout>

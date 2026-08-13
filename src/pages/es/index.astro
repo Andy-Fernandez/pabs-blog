@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import HomePage from '../../components/HomePage.astro';
+
+const projects = (await getCollection('projects', ({ data }) => data.language === 'es' && !data.draft))
+	.sort((a, b) => Number(b.data.featured) - Number(a.data.featured));
+const journal = (await getCollection('journal', ({ data }) => data.language === 'es' && !data.draft))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<HomePage lang="es" {projects} {journal} />

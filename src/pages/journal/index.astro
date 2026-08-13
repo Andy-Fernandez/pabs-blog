@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import JournalEntryPreview from '../../components/JournalEntryPreview.astro';
+
+const entries = (await getCollection('journal', ({ data }) => data.language === 'en' && !data.draft))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Journal — Pabs File" description="Thoughts, films, books, food, technology, life, and everything that refuses to fit in one subject." lang="en" switchHref="/es/journal">
+	<Container class="page-hero">
+		<span class="eyebrow">one system / many interests</span>
+		<h1 class="page-title">Journal</h1>
+		<p class="page-deck">Thoughts, films, books, food, technology, life—and whatever I need to remember next.</p>
+	</Container>
+	<section class="section">
+		<Container>
+			<div class="trace-grid">
+				{entries.map((entry, index) => <JournalEntryPreview {entry} lang="en" featured={index === 0} />)}
+			</div>
+		</Container>
+	</section>
+</BaseLayout>

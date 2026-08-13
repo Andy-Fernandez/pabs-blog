@@ -1,0 +1,45 @@
+---
+import Container from './Container.astro';
+import { prefixFor, ui, type Lang } from '../lib/i18n';
+
+interface Props {
+	lang: Lang;
+	switchHref: string;
+	currentPath?: string;
+}
+
+const { lang, switchHref, currentPath = Astro.url.pathname } = Astro.props;
+const copy = ui[lang];
+const prefix = prefixFor(lang);
+
+const links = [
+	{ href: `${prefix}/about`, label: copy.nav.about },
+	{ href: `${prefix}/projects`, label: copy.nav.projects },
+	{ href: `${prefix}/journal`, label: copy.nav.journal },
+	{ href: `${prefix}/2026`, label: copy.nav.archive },
+];
+
+const isCurrent = (href: string) => currentPath === href || (href !== `${prefix}/2026` && currentPath.startsWith(`${href}/`));
+---
+
+<a class="skip-link" href="#main">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
+
+<header class="site-header">
+	<Container class="header-inner">
+		<a class="wordmark" href={prefix || '/'} aria-label={lang === 'es' ? 'Inicio de Pabs' : "Pabs' home"}>
+			Pabs <span>File</span>
+		</a>
+
+		<div class="header-actions">
+			<nav class="site-nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Primary navigation'}>
+				{links.map((link) => (
+					<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>
+				))}
+			</nav>
+
+			<a class="language-switch" href={switchHref} hreflang={lang === 'en' ? 'es' : 'en'} aria-label={copy.languageLabel}>
+				{lang === 'en' ? 'EN / ES' : 'ES / EN'}
+			</a>
+		</div>
+	</Container>
+</header>

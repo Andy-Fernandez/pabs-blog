@@ -1,0 +1,29 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import ContentLayout from '../../../layouts/ContentLayout.astro';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('projects', ({ data }) => data.language === 'es' && !data.draft);
+	return entries.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
+}
+
+interface Props { entry: CollectionEntry<'projects'> }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const entries = await getCollection('projects', ({ data }) => data.language === 'en' && !data.draft);
+const alternate = entries.find((candidate) => candidate.data.translationKey && candidate.data.translationKey === entry.data.translationKey);
+const switchHref = alternate ? `/projects/${alternate.data.slug}` : '/projects';
+---
+
+<ContentLayout
+	title={entry.data.title}
+	description={entry.data.description}
+	lang="es"
+	{switchHref}
+	kind={`proyecto / ${entry.data.status === 'active' ? 'activo' : entry.data.status}`}
+	dateOrYear={String(entry.data.year)}
+	tags={entry.data.tags}
+	backHref="/es/projects"
+>
+	<Content />
+</ContentLayout>

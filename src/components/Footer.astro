@@ -1,0 +1,22 @@
+---
+import Container from './Container.astro';
+import { ui, type Lang } from '../lib/i18n';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const copy = ui[lang];
+---
+
+<footer class="site-footer">
+	<Container class="footer-inner">
+		<p class="footer-line">{copy.footerLine}</p>
+		<p class="footer-note">
+			<strong>PABLO FERNANDEZ (PABS) / 2026</strong><br />
+			{copy.footerNote}<br />
+			<a href={lang === 'es' ? '/es/about' : '/about'}>{lang === 'es' ? 'Seguir el rastro →' : 'Follow the trace →'}</a>
+		</p>
+	</Container>
+</footer>

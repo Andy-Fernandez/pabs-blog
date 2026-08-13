@@ -50,7 +50,7 @@ strong preference yet; it can be changed later.
 ### Needed Before Design
 
 - [x] Use a concise `EN / ES` language control in the shared navigation
-- [ ] Write or approve the Spanish version of the homepage introduction
+- [x] Write or approve the Spanish version of the homepage introduction
 
 ### Needed Before Adding Content
 
@@ -70,50 +70,50 @@ strong preference yet; it can be changed later.
 
 ### 1. Foundations
 
-- [ ] Replace the Astro starter homepage and metadata
-- [ ] Create global CSS variables for colors, typography, spacing, widths, borders,
+- [x] Replace the Astro starter homepage and metadata
+- [x] Create global CSS variables for colors, typography, spacing, widths, borders,
   radius, and transitions
-- [ ] Create `BaseLayout`
-- [ ] Create `Header`, `Footer`, and `Container`
-- [ ] Add English and Spanish interface dictionaries with English as the fallback
-- [ ] Add static localized routes and preserve the current page when switching
+- [x] Create `BaseLayout`
+- [x] Create `Header`, `Footer`, and `Container`
+- [x] Add English and Spanish interface dictionaries with English as the fallback
+- [x] Add static localized routes and preserve the current page when switching
   languages where a translation exists
-- [ ] Add reusable page title, description, and Open Graph metadata
-- [ ] Replace the starter favicon
-- [ ] Add a reduced-motion mode for any collage or sticker animation
+- [x] Add reusable page title, description, and Open Graph metadata
+- [x] Replace the starter favicon
+- [x] Add a reduced-motion mode for any collage or sticker animation
 
 ### 2. Content
 
-- [ ] Create the `projects` content collection
-- [ ] Create the `journal` content collection
-- [ ] Add simple schemas in `src/content.config.ts`
-- [ ] Add `language: en | es` to project and journal content
-- [ ] Support journal types: thought, movie, book, cooking, tech, and life
-- [ ] Exclude draft content from production pages
-- [ ] Add the first real project and journal entry early to guide the design
+- [x] Create the `projects` content collection
+- [x] Create the `journal` content collection
+- [x] Add simple schemas in `src/content.config.ts`
+- [x] Add `language: en | es` to project and journal content
+- [x] Support journal types: thought, movie, book, cooking, tech, and life
+- [x] Exclude draft content from production pages
+- [x] Add the first real project and journal entry early to guide the design
 
 ### 3. Pages
 
-- [ ] Build `/` with Introduction, Selected Projects, Lately, and Latest Journal
+- [x] Build `/` with Introduction, Selected Projects, Lately, and Latest Journal
   Entries
-- [ ] Build `/about`
-- [ ] Build `/projects`
-- [ ] Build `/projects/[slug]`
-- [ ] Build `/journal`
-- [ ] Build `/journal/[slug]`
-- [ ] Build a simple `404` page
+- [x] Build `/about`
+- [x] Build `/projects`
+- [x] Build `/projects/[slug]`
+- [x] Build `/journal`
+- [x] Build `/journal/[slug]`
+- [x] Build a simple `404` page
 
 ### 4. Reusable Components
 
-- [ ] Create `ProjectPreview`
-- [ ] Create `JournalEntryPreview`
-- [ ] Create `LatelyItem`
+- [x] Create `ProjectPreview`
+- [x] Create `JournalEntryPreview`
+- [x] Create `LatelyItem`
 - [ ] Create `Tag` only if tags are displayed in more than one place
-- [ ] Create shared prose styles for project and journal bodies
+- [x] Create shared prose styles for project and journal bodies
 
 ### 5. Content For Launch
 
-- [ ] Add a real homepage introduction
+- [x] Add a real homepage introduction
 - [ ] Add the About page copy
 - [ ] Publish at least 2 project stories
 - [ ] Publish at least 4 journal entries across different types

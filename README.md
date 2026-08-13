@@ -1,43 +1,32 @@
-# Astro Starter Kit: Minimal
+# Pabs File
+
+**The connection between everything here is me.**
+
+Pabs File is a personal, creative, constantly evolving archive of the things I
+build, think, learn, observe, and make. It does not try to present a perfect or
+finished version of me. It preserves traces of the process: projects, films,
+books, food, ideas, experiments, failures, and curiosities that are shaping who
+I become.
+
+The site should feel human, imperfect, expressive, and made by hand—closer to a
+fanzine, a notebook, or a room full of meaningful things than a corporate
+portfolio.
+
+## Structure
+
+- `Projects` contains things I intentionally build.
+- `Journal` contains everything I want to document or reflect on.
+- Year pages such as `/2026` preserve a chronological view of both.
+- English is the default interface; Spanish lives under `/es`.
+
+## Development
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Built with Astro, TypeScript, Markdown, and native CSS. The site is static by
+default and intentionally has no framework UI, backend, database, authentication,
+or CMS.

@@ -1,0 +1,145 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from './Container.astro';
+import JournalEntryPreview from './JournalEntryPreview.astro';
+import ProjectPreview from './ProjectPreview.astro';
+import LatelyItem from './LatelyItem.astro';
+import { prefixFor, type Lang } from '../lib/i18n';
+
+interface Props {
+	lang: Lang;
+	projects: CollectionEntry<'projects'>[];
+	journal: CollectionEntry<'journal'>[];
+}
+
+const { lang, projects, journal } = Astro.props;
+const prefix = prefixFor(lang);
+
+const copy = lang === 'es' ? {
+	title: 'Pabs File — Un archivo humano en progreso',
+	description: 'Un archivo personal y creativo sobre las cosas que Pablo construye, piensa, aprende, observa y hace.',
+	eyebrow: 'archivo personal / edición 001 / 2026',
+	titleA: 'Sigo',
+	titleB: 'cambiando.',
+	intro: 'Hola, soy Pabs. Me encanta crear, sentir y observar. Este es el lugar donde guardo las huellas de la persona en la que me voy convirtiendo.',
+	openArchive: 'Abrir el archivo 2026',
+	about: 'Sobre este humano',
+	note: 'NO ES UN PORTAFOLIO / NO TIENE UN SOLO TEMA / NO ESTÁ TERMINADO',
+	ticket: 'LA PAZ / AGO 2026 / ADMITE A UNA PERSONA CURIOSA',
+	stamp: 'HECHO POR UNA PERSONA',
+	projectsTitle: 'Cosas que construyo',
+	projectsKicker: 'proyectos / intentos / accidentes útiles',
+	journalTitle: 'Últimos rastros',
+	journalKicker: 'ideas / películas / libros / vida',
+	latelyTitle: 'Últimamente',
+	latelyKicker: 'una foto borrosa del presente',
+	lately: [
+		['Mirando', 'Cómo se comporta la memoria en las películas'],
+		['Leyendo', 'Notas sobre creatividad e identidad'],
+		['Construyendo', 'Este archivo vivo'],
+		['Cocinando', 'Despacio, con errores y sin receta fija'],
+		['Aprendiendo', 'A publicar antes de sentir que todo está listo'],
+	],
+	manifesto: 'La conexión entre todo lo que hay aquí soy yo.',
+	manifestoAside: 'No documento solamente lo que hice. Documento el proceso de convertirme en alguien: lo terminado, lo extraño, lo cotidiano, lo que falló y lo que quizá mañana ya no pienso igual.',
+} : {
+	title: 'Pabs File — A human archive in progress',
+	description: 'A personal, creative archive of the things Pablo builds, thinks, learns, observes, and makes.',
+	eyebrow: 'personal archive / issue 001 / 2026',
+	titleA: 'Still',
+	titleB: 'becoming.',
+	intro: 'Hi, this is me: Pabs. I love to create, feel, and observe. This is where I keep the traces of the person I am becoming.',
+	openArchive: 'Open the 2026 archive',
+	about: 'About this human',
+	note: 'NOT A PORTFOLIO / NOT ONE TOPIC / NOT FINISHED',
+	ticket: 'LA PAZ / AUG 2026 / ADMIT ONE CURIOUS PERSON',
+	stamp: 'MADE BY A PERSON',
+	projectsTitle: 'Things I build',
+	projectsKicker: 'projects / attempts / useful accidents',
+	journalTitle: 'Latest traces',
+	journalKicker: 'thoughts / films / books / life',
+	latelyTitle: 'Lately',
+	latelyKicker: 'a blurry picture of right now',
+	lately: [
+		['Watching', 'How memory behaves in films'],
+		['Reading', 'Notes on creativity and identity'],
+		['Building', 'This living archive'],
+		['Cooking', 'Slowly, messily, without a fixed recipe'],
+		['Learning', 'To publish before everything feels finished'],
+	],
+	manifesto: 'The connection between everything here is me.',
+	manifestoAside: 'I am not only documenting what I did. I am documenting the process of becoming someone: the finished parts, the strange parts, the ordinary parts, what failed, and what I might not believe tomorrow.',
+};
+---
+
+<BaseLayout title={copy.title} description={copy.description} {lang} switchHref={lang === 'en' ? '/es' : '/'}>
+	<section class="section">
+		<Container class="hero">
+			<div>
+				<span class="eyebrow">{copy.eyebrow}</span>
+				<h1 class="hero-title"><span>{copy.titleA}</span><span>{copy.titleB}</span></h1>
+				<p class="hero-copy">{copy.intro}</p>
+				<div class="hero-actions">
+					<a class="button-cut" href={`${prefix}/2026`}>{copy.openArchive}</a>
+					<a class="button-cut secondary" href={`${prefix}/about`}>{copy.about}</a>
+				</div>
+			</div>
+
+			<div class="archive-collage" aria-hidden="true">
+				<div class="tape top"></div>
+				<div class="collage-sheet"></div>
+				<div class="collage-note">{copy.note}</div>
+				<div class="collage-ticket">{copy.ticket}</div>
+				<div class="collage-stamp">{copy.stamp}</div>
+			</div>
+		</Container>
+	</section>
+
+	<section class="section">
+		<Container>
+			<div class="section-heading">
+				<h2>{copy.projectsTitle}</h2>
+				<span class="section-kicker">{copy.projectsKicker}</span>
+			</div>
+			<div class="project-grid">
+				{projects.length > 0 ? projects.slice(0, 2).map((entry, index) => <ProjectPreview {entry} {lang} featured={index === 0} />) : (
+					<p class="empty-note">{lang === 'es' ? 'Este espacio está esperando su primer proyecto.' : 'This space is waiting for its first project.'}</p>
+				)}
+			</div>
+		</Container>
+	</section>
+
+	<section class="section">
+		<Container>
+			<div class="section-heading">
+				<h2>{copy.journalTitle}</h2>
+				<span class="section-kicker">{copy.journalKicker}</span>
+			</div>
+			<div class="trace-grid">
+				{journal.length > 0 ? journal.slice(0, 3).map((entry, index) => <JournalEntryPreview {entry} {lang} featured={index === 0} />) : (
+					<p class="empty-note">{lang === 'es' ? 'La primera huella todavía se está escribiendo.' : 'The first trace is still being written.'}</p>
+				)}
+			</div>
+		</Container>
+	</section>
+
+	<section class="section">
+		<Container>
+			<div class="section-heading">
+				<h2>{copy.latelyTitle}</h2>
+				<span class="section-kicker">{copy.latelyKicker}</span>
+			</div>
+			<div class="lately-grid">
+				{copy.lately.map(([label, text], index) => <LatelyItem number={String(index + 1).padStart(2, '0')} {label} {text} />)}
+			</div>
+		</Container>
+	</section>
+
+	<section class="section manifesto-section">
+		<Container>
+			<p class="manifesto-line"><mark>{copy.manifesto}</mark></p>
+			<p class="manifesto-aside">{copy.manifestoAside}</p>
+		</Container>
+	</section>
+</BaseLayout>

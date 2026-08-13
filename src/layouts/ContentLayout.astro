@@ -1,0 +1,44 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/Container.astro';
+import { ui, type Lang } from '../lib/i18n';
+
+interface Props {
+	title: string;
+	description: string;
+	lang: Lang;
+	switchHref: string;
+	kind: string;
+	dateOrYear: string;
+	tags?: string[];
+	backHref: string;
+}
+
+const { title, description, lang, switchHref, kind, dateOrYear, tags = [], backHref } = Astro.props;
+---
+
+<BaseLayout title={`${title} — Pabs File`} description={description} {lang} {switchHref}>
+	<article>
+		<Container class="content-header">
+			<div class="meta-line">
+				<span>{kind}</span><span>/</span><span>{dateOrYear}</span>
+			</div>
+			<h1 class="page-title">{title}</h1>
+			<p class="content-deck">{description}</p>
+			{tags.length > 0 && (
+				<div class="content-meta" aria-label={lang === 'es' ? 'Etiquetas' : 'Tags'}>
+					{tags.map((tag) => <span class="label">{tag}</span>)}
+				</div>
+			)}
+		</Container>
+
+		<div class="content-body-wrap">
+			<Container>
+				<div class="prose">
+					<slot />
+					<a class="back-link" href={backHref}>← {ui[lang].back}</a>
+				</div>
+			</Container>
+		</div>
+	</article>
+</BaseLayout>
