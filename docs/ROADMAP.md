@@ -99,8 +99,8 @@ strong preference yet; it can be changed later.
 - [x] Build `/about`
 - [x] Build `/projects`
 - [x] Build `/projects/[slug]`
-- [x] Build `/journal`
-- [x] Build `/journal/[slug]`
+- [x] Build `/writings`
+- [x] Build `/writings/[slug]`
 - [x] Build a simple `404` page
 
 ### 4. Reusable Components

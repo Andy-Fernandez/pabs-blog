@@ -1,15 +1,16 @@
 ---
-title: "La conexión entre todo lo que hay aquí soy yo"
-description: "Por qué esta web no muestra una identidad terminada, sino el rastro de una identidad en movimiento."
+title: "No quiero un internet perfecto"
+description: "Por qué las webs personales deberían sentirse más como habitaciones, cuadernos, colecciones de discos y escritorios desordenados, y menos como páginas corporativas."
 date: 2026-08-13
 type: thought
+label: destacado
 tags:
   - web personal
   - identidad
   - memoria
 draft: false
 language: es
-slug: la-conexion-entre-todo-esto-soy-yo
+slug: no-quiero-un-internet-perfecto
 translationKey: site-manifesto
 ---
 

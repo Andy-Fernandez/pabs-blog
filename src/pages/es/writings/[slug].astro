@@ -4,7 +4,7 @@ import ContentLayout from '../../../layouts/ContentLayout.astro';
 import { formatDate, journalType } from '../../../lib/i18n';
 
 export async function getStaticPaths() {
-	const entries = await getCollection('journal', ({ data }) => data.language === 'es' && !data.draft);
+	const entries = await getCollection('journal', ({ data }) => data.language === 'es' && !data.draft && !['movie', 'book'].includes(data.type));
 	return entries.map((entry) => ({ params: { slug: entry.data.slug }, props: { entry } }));
 }
 
@@ -13,7 +13,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const entries = await getCollection('journal', ({ data }) => data.language === 'en' && !data.draft);
 const alternate = entries.find((candidate) => candidate.data.translationKey && candidate.data.translationKey === entry.data.translationKey);
-const switchHref = alternate ? `/journal/${alternate.data.slug}` : '/journal';
+const switchHref = alternate ? `/writings/${alternate.data.slug}` : '/writings';
 ---
 
 <ContentLayout
@@ -24,7 +24,7 @@ const switchHref = alternate ? `/journal/${alternate.data.slug}` : '/journal';
 	kind={journalType.es[entry.data.type]}
 	dateOrYear={formatDate(entry.data.date, 'es')}
 	tags={entry.data.tags}
-	backHref="/es/journal"
+	backHref="/es/writings"
 >
 	<Content />
 </ContentLayout>

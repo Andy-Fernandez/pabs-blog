@@ -10,6 +10,7 @@ const journal = defineCollection({
 		description: z.string(),
 		date: z.coerce.date(),
 		type: z.enum(['thought', 'movie', 'book', 'cooking', 'tech', 'life']),
+		label: z.string().optional(),
 		subject: z.string().optional(),
 		author: z.string().optional(),
 		rating: z.number().min(0).max(5).optional(),

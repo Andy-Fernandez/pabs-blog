@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { formatDate, journalType, prefixFor, ui, type Lang } from '../lib/i18n';
+import { journalType, prefixFor, ui, type Lang } from '../lib/i18n';
 
 interface Props {
 	entry: CollectionEntry<'journal'>;
@@ -10,13 +10,17 @@ interface Props {
 
 const { entry, lang, featured = false } = Astro.props;
 const copy = ui[lang];
+const compactDate = new Intl.DateTimeFormat(lang === 'es' ? 'es-BO' : 'en-US', {
+	month: '2-digit', day: '2-digit', year: '2-digit', timeZone: 'UTC',
+}).format(entry.data.date).replaceAll('/', '.');
+const entryLabel = featured ? (lang === 'es' ? 'destacado' : 'featured') : (entry.data.label ?? journalType[lang][entry.data.type]);
 ---
 
 <article class:list={['journal-card', { featured }]}>
 	<div class="meta-line">
-		<span>{journalType[lang][entry.data.type]}</span><span>/</span><time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
+		<span>{entryLabel}</span>{featured && <><span>/</span><time datetime={entry.data.date.toISOString()}>{compactDate}</time></>}
 	</div>
 	<h3>{entry.data.title}</h3>
 	<p>{entry.data.description}</p>
-	<a class="card-link" href={`${prefixFor(lang)}/journal/${entry.data.slug}`}>{copy.read} →</a>
+	<a class="card-link" href={`${prefixFor(lang)}/writings/${entry.data.slug}`}>{copy.read} →</a>
 </article>

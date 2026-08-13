@@ -15,7 +15,9 @@ portfolio.
 ## Structure
 
 - `Projects` contains things I intentionally build.
-- `Journal` contains everything I want to document or reflect on.
+- `Writings`, `Movies`, and `Books` are the public views into one simple Journal
+  content collection, so different interests can feel distinct without creating
+  separate publishing systems.
 - Year pages such as `/2026` preserve a chronological view of both.
 - English is the default interface; Spanish lives under `/es`.
 

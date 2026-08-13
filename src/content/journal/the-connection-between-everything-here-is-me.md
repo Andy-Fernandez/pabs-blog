@@ -1,15 +1,16 @@
 ---
-title: "The connection between everything here is me"
-description: "Why this site is not a finished identity, but a record of one moving."
+title: "I don’t want a perfect internet"
+description: "Why personal websites should feel more like bedrooms, notebooks, record collections and messy desks — less like corporate landing pages."
 date: 2026-08-13
 type: thought
+label: featured
 tags:
   - personal web
   - identity
   - memory
 draft: false
 language: en
-slug: the-connection-between-everything-here-is-me
+slug: i-dont-want-a-perfect-internet
 translationKey: site-manifesto
 ---
 

@@ -14,8 +14,10 @@ const prefix = prefixFor(lang);
 
 const links = [
 	{ href: `${prefix}/about`, label: copy.nav.about },
+	{ href: `${prefix || '/'}#writings`, label: copy.nav.writings },
+	{ href: `${prefix || '/'}#movies`, label: copy.nav.movies },
+	{ href: `${prefix || '/'}#books`, label: copy.nav.books },
 	{ href: `${prefix}/projects`, label: copy.nav.projects },
-	{ href: `${prefix}/journal`, label: copy.nav.journal },
 	{ href: `${prefix}/2026`, label: copy.nav.archive },
 ];
 

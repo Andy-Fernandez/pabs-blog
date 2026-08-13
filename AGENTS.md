@@ -166,8 +166,8 @@ Possible routes:
 /projects
 /projects/[slug]
 
-/journal
-/journal/[slug]
+/writings
+/writings/[slug]
 ```
 
 Journal filtering can eventually provide views such as:

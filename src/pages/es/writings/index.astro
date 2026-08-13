@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/Container.astro';
+import JournalEntryPreview from '../../../components/JournalEntryPreview.astro';
+
+const entries = (await getCollection('journal', ({ data }) => data.language === 'es' && !data.draft && !['movie', 'book'].includes(data.type)))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Textos — Pabs File" description="Ensayos, ideas, notas técnicas, vida y pensamientos escritos antes de que desaparezcan." lang="es" switchHref="/writings">
+	<Container class="page-hero">
+		<span class="eyebrow">páginas / fragmentos / preguntas sin terminar</span>
+		<h1 class="page-title">Textos</h1>
+		<p class="page-deck">Ideas escritas antes de que desaparezcan o antes de convertirme en alguien que ya no está de acuerdo con ellas.</p>
+	</Container>
+	<section class="section writings-section">
+		<Container>
+			<div class="writings-desk">
+				<div class="writing-scrap" aria-hidden="true">ESCRIBIR PARA NO OLVIDAR EN QUÉ ESTABA PENSANDO</div>
+				<div class="trace-grid">
+					{entries.map((entry, index) => <JournalEntryPreview {entry} lang="es" featured={index === 0} />)}
+				</div>
+			</div>
+		</Container>
+	</section>
+</BaseLayout>

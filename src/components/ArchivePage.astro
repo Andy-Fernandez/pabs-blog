@@ -19,7 +19,7 @@ const items = [
 		date: formatDate(entry.data.date, lang),
 		kind: journalType[lang][entry.data.type],
 		title: entry.data.title,
-		href: `${prefix}/journal/${entry.data.slug}`,
+		href: `${prefix}/writings/${entry.data.slug}`,
 	})),
 	...projects.map((entry) => ({
 		timestamp: new Date(`${entry.data.year}-01-01T00:00:00`).valueOf(),
