@@ -61,7 +61,11 @@ HTML example literally; it is inspiration rather than production code.
 - Display name: `Pablo Fernandez (Pabs)`
 - Working introduction:
   `Hi this is me Pabs love create, feel and innate observer`
-- Languages: English and Spanish
+- Default language: English
+- Alternate interface language: Spanish, selected by the visitor with a concise
+  `EN / ES` control
+- Content can be published in either language without requiring every entry to be
+  translated
 
 The final wording can be reviewed when the rest of the real content is available.
 

@@ -22,9 +22,11 @@ strong preference yet; it can be changed later.
 
 ### Confirmed
 
-- [x] **Languages:** English and Spanish
-  - V1 approach: entries may be written in either language and will declare their
-    language in the content metadata. Do not require every entry to be translated.
+- [x] **Languages:** English by default, with a visitor-controlled Spanish option
+  - Use English for the default interface and routes. Visitors can switch the site
+    interface to Spanish.
+  - Entries may be written in either language and will declare their language in
+    the content metadata. Do not require every entry to be translated.
 - [x] **Display name:** `Pablo Fernandez (Pabs)`
 - [x] **Homepage introduction (working copy):**
   `Hi this is me Pabs love create, feel and innate observer`
@@ -47,10 +49,8 @@ strong preference yet; it can be changed later.
 
 ### Needed Before Design
 
-- [ ] Decide how bilingual navigation labels should appear
-  - Recommended: keep navigation labels concise and avoid displaying two full
-    interfaces at once. Confirm this when the first page is designed.
-- [ ] Decide whether the homepage introduction appears in English, Spanish, or both
+- [x] Use a concise `EN / ES` language control in the shared navigation
+- [ ] Write or approve the Spanish version of the homepage introduction
 
 ### Needed Before Adding Content
 
@@ -75,6 +75,9 @@ strong preference yet; it can be changed later.
   radius, and transitions
 - [ ] Create `BaseLayout`
 - [ ] Create `Header`, `Footer`, and `Container`
+- [ ] Add English and Spanish interface dictionaries with English as the fallback
+- [ ] Add static localized routes and preserve the current page when switching
+  languages where a translation exists
 - [ ] Add reusable page title, description, and Open Graph metadata
 - [ ] Replace the starter favicon
 - [ ] Add a reduced-motion mode for any collage or sticker animation
