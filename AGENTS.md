@@ -8,7 +8,7 @@ It is not just a developer portfolio and it is not just a blog.
 
 It is a personal space on the internet where I can document the things I:
 
-* build
+* build.
 * learn
 * think about
 * read
