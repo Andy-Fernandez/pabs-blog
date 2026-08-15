@@ -41,7 +41,7 @@ const isCurrent = (href: string) => currentPath === href || currentPath.startsWi
 			</a>
 
 			<details class="site-menu">
-				<summary>
+				<summary aria-label={lang === 'es' ? 'Menú principal' : 'Main menu'}>
 					<span>{lang === 'es' ? 'Menú' : 'Menu'}</span>
 					<i class="menu-icon" aria-hidden="true"></i>
 				</summary>

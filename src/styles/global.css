@@ -78,7 +78,7 @@ a {
 a,
 button,
 summary {
-	-webkit-tap-highlight-color: transparent;
+	-webkit-tap-highlight-color: rgb(128 159 207 / 28%);
 }
 
 a:focus-visible,
@@ -119,6 +119,9 @@ select {
 	top: var(--space-3);
 	left: var(--space-3);
 	z-index: 200;
+	display: inline-flex;
+	min-height: 44px;
+	align-items: center;
 	padding: 0.7rem 0.9rem;
 	color: var(--paper);
 	background: var(--ink);
@@ -144,7 +147,7 @@ select {
 .header-inner {
 	position: relative;
 	display: flex;
-	min-height: 70px;
+	min-height: 64px;
 	align-items: center;
 	justify-content: space-between;
 	border-bottom: 1.5px solid var(--ink);
@@ -152,6 +155,7 @@ select {
 
 .wordmark {
 	display: inline-flex;
+	min-height: 44px;
 	align-items: center;
 	font-family: var(--font-display);
 	font-size: 1.65rem;
@@ -173,7 +177,7 @@ select {
 .header-controls {
 	display: flex;
 	align-items: center;
-	gap: var(--space-2);
+	gap: 0.25rem;
 }
 
 .language-switch,
@@ -191,8 +195,9 @@ select {
 }
 
 .language-switch {
-	padding-inline: 0.6rem;
+	padding-inline: 0.35rem;
 	text-decoration: none;
+	white-space: nowrap;
 }
 
 .site-menu {
@@ -200,10 +205,23 @@ select {
 }
 
 .site-menu summary {
-	gap: 0.65rem;
-	padding-inline: 0.65rem 0;
+	width: 44px;
+	gap: 0;
+	padding: 0;
 	cursor: pointer;
 	list-style: none;
+}
+
+.site-menu summary > span {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
 }
 
 .site-menu summary::-webkit-details-marker {
@@ -259,11 +277,14 @@ select {
 	right: 0;
 	display: grid;
 	width: min(84vw, 360px);
+	max-height: min(70vh, 28rem);
 	border: 1.5px solid var(--ink);
 	border-radius: var(--radius-md);
 	padding: 0.65rem;
 	background: var(--paper-pure);
 	box-shadow: 0 18px 45px rgb(7 7 7 / 12%);
+	overflow-y: auto;
+	overscroll-behavior: contain;
 }
 
 .site-menu nav a {
@@ -297,7 +318,7 @@ select {
 }
 
 .home-hero {
-	padding-block: clamp(2.75rem, 8vw, 7rem) clamp(5rem, 10vw, 8rem);
+	padding-block: 2rem 3.5rem;
 }
 
 .hero-layout {
@@ -309,7 +330,7 @@ select {
 .archive-label {
 	grid-column: 1 / -1;
 	width: fit-content;
-	margin: 0 0 var(--space-5);
+	margin: 0 0 var(--space-4);
 	border-radius: var(--radius-sm);
 	padding: 0.52rem 0.72rem 0.46rem;
 	color: var(--paper-pure);
@@ -335,7 +356,7 @@ select {
 	font-size: clamp(3.6rem, 18vw, 6rem);
 	font-weight: 900;
 	letter-spacing: -0.045em;
-	line-height: 0.77;
+	line-height: 0.8;
 	text-transform: uppercase;
 }
 
@@ -364,11 +385,12 @@ select {
 	position: relative;
 	grid-column: 1 / -1;
 	width: min(88%, 430px);
-	margin: var(--space-6) 0 0 auto;
-	padding: 1.1rem 0.8rem 0 0;
+	margin: var(--space-5) 0 0 auto;
+	padding: 0;
 }
 
 .motion-ring {
+	display: none;
 	position: absolute;
 	top: -1rem;
 	right: -2.5rem;
@@ -391,9 +413,9 @@ select {
 .portrait-card {
 	position: relative;
 	z-index: 2;
-	aspect-ratio: 0.58;
-	border: 1.5px solid var(--ink);
-	border-radius: var(--radius-lg);
+	aspect-ratio: 1154 / 1685;
+	border: 0;
+	border-radius: 0;
 	background: transparent;
 	overflow: hidden;
 }
@@ -401,11 +423,12 @@ select {
 .portrait-image {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 	mix-blend-mode: multiply;
 }
 
 .human-stamp {
+	display: none;
 	position: absolute;
 	top: 0;
 	left: -1.2rem;
@@ -441,9 +464,9 @@ select {
 	z-index: 5;
 	border: 1.5px solid var(--ink);
 	border-radius: var(--radius-md);
-	padding: 0.8rem 0.72rem;
+	padding: 0.62rem 0.6rem;
 	background: var(--blue-soft);
-	font-size: 0.72rem;
+	font-size: 0.65rem;
 	font-weight: 700;
 	text-transform: uppercase;
 }
@@ -452,7 +475,7 @@ select {
 	grid-column: 1 / -1;
 	display: grid;
 	gap: var(--space-6);
-	margin-top: var(--space-7);
+	margin-top: 2.5rem;
 }
 
 .hero-intro {
@@ -461,29 +484,29 @@ select {
 
 .hero-intro > p {
 	margin: 0;
-	font-size: clamp(1rem, 4vw, 1.2rem);
-	line-height: 1.55;
+	font-size: clamp(0.95rem, 4vw, 1.08rem);
+	line-height: 1.5;
 }
 
 .hero-intro > p + p {
-	margin-top: var(--space-3);
+	margin-top: var(--space-2);
 	font-weight: 700;
 }
 
 .hero-actions {
 	display: grid;
 	gap: var(--space-2);
-	margin-top: var(--space-5);
+	margin-top: var(--space-4);
 }
 
 .archive-action {
 	display: flex;
-	min-height: 52px;
+	min-height: 48px;
 	align-items: center;
 	justify-content: space-between;
 	border: 1.5px solid var(--ink);
 	border-radius: var(--radius-md);
-	padding: 0.85rem 1rem;
+	padding: 0.72rem 0.9rem;
 	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.035em;
@@ -543,21 +566,21 @@ select {
 
 .identity-section {
 	border-top: 1.5px solid var(--ink);
-	padding-block: clamp(3.5rem, 7vw, 6rem);
+	padding-block: 3.25rem;
 }
 
 .identity-grid {
 	display: grid;
-	gap: clamp(3rem, 8vw, 6rem);
+	gap: var(--space-5);
 	align-items: center;
 }
 
 .identity-card {
 	position: relative;
-	min-height: 320px;
+	min-height: 0;
 	border: 1.5px solid var(--ink);
 	border-radius: var(--radius-lg);
-	padding: clamp(1.6rem, 6vw, 4.5rem);
+	padding: var(--space-4);
 	background: var(--paper-muted);
 	overflow: hidden;
 }
@@ -578,9 +601,9 @@ select {
 
 .identity-card h2 {
 	max-width: 8ch;
-	margin: clamp(2rem, 5vw, 3rem) 0 var(--space-4);
+	margin: 1.75rem 0 var(--space-3);
 	font-family: var(--font-display);
-	font-size: clamp(3.2rem, 7vw, 5.3rem);
+	font-size: clamp(2.8rem, 14vw, 4.5rem);
 	letter-spacing: -0.035em;
 	line-height: 0.84;
 	text-transform: uppercase;
@@ -690,8 +713,8 @@ select {
 
 .current-list > div {
 	display: grid;
-	grid-template-columns: minmax(90px, 0.35fr) minmax(0, 1fr);
-	gap: var(--space-3);
+	grid-template-columns: minmax(0, 1fr);
+	gap: 0.3rem;
 	border-bottom: 1px solid var(--gray-line);
 	padding-block: 1rem;
 }
@@ -723,8 +746,8 @@ select {
 
 .recent-list a {
 	display: grid;
-	grid-template-columns: 5rem minmax(0, 1fr) auto;
-	gap: 0.3rem var(--space-3);
+	grid-template-columns: minmax(0, 1fr) auto auto;
+	gap: 0.25rem var(--space-2);
 	align-items: center;
 	border-bottom: 1px solid var(--gray-line);
 	padding: 1rem var(--space-4);
@@ -740,19 +763,20 @@ select {
 }
 
 .recent-list strong {
-	grid-column: 2 / -1;
+	grid-column: 1 / 3;
+	grid-row: 2;
 	font-size: 0.8rem;
 	line-height: 1.35;
 }
 
 .recent-list time {
-	grid-column: 1;
-	grid-row: 2;
+	grid-column: 2;
+	grid-row: 1;
 }
 
 .recent-list i {
 	grid-column: 3;
-	grid-row: 1;
+	grid-row: 1 / 3;
 	font-style: normal;
 	transition: transform var(--motion-base) ease;
 }
@@ -773,6 +797,7 @@ select {
 
 .panel-link {
 	display: flex;
+	min-height: 44px;
 	align-items: center;
 	justify-content: space-between;
 	padding: 1.1rem var(--space-4);
@@ -811,7 +836,7 @@ select {
 }
 
 .project-feature h2 {
-	margin: var(--space-6) 0 var(--space-4);
+	margin: var(--space-5) 0 var(--space-4);
 	font-family: var(--font-display);
 	font-size: clamp(4rem, 17vw, 9rem);
 	letter-spacing: -0.035em;
@@ -1132,18 +1157,21 @@ select {
 }
 
 .footer-inner > a {
+	display: inline-flex;
+	min-height: 44px;
+	align-items: center;
 	width: fit-content;
 	font-weight: 700;
 	text-transform: uppercase;
 }
 
 @media (min-width: 720px) {
-	.app-shell {
-		border-radius: 36px 36px 0 0;
+	.container {
+		width: min(calc(100% - 4rem), var(--page-width));
 	}
 
-	.container {
-		width: min(calc(100% - 5rem), var(--page-width));
+	.home-hero {
+		padding-block: clamp(3.5rem, 8vw, 6rem) clamp(5rem, 10vw, 8rem);
 	}
 
 	.hero-layout {
@@ -1162,11 +1190,16 @@ select {
 	}
 
 	.hero-statement {
-		font-size: clamp(6.5rem, 16.5vw, 10.5rem);
+		font-size: clamp(6rem, 14vw, 9rem);
 	}
 
 	.portrait-stage {
-		margin-top: -1rem;
+		margin-top: 1rem;
+	}
+
+	.motion-ring,
+	.human-stamp {
+		display: block;
 	}
 
 	.hero-support {
@@ -1185,6 +1218,11 @@ select {
 
 	.live-grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.current-list > div {
+		grid-template-columns: minmax(90px, 0.35fr) minmax(0, 1fr);
+		gap: var(--space-3);
 	}
 
 	.project-feature {
@@ -1217,7 +1255,16 @@ select {
 	}
 }
 
-@media (min-width: 760px) {
+@media (min-width: 960px) {
+	.container {
+		width: min(calc(100% - 5rem), var(--page-width));
+	}
+
+	.human-stamp {
+		top: -4rem;
+		left: 0.5rem;
+	}
+
 	.header-inner {
 		min-height: 78px;
 	}
