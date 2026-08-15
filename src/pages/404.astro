@@ -4,10 +4,12 @@ import Container from '../components/Container.astro';
 ---
 
 <BaseLayout title="404 — Trace not found" description="This piece of the archive is missing." lang="en" switchHref="/es">
-	<Container class="page-hero">
-		<span class="eyebrow">error / missing fragment</span>
-		<h1 class="page-title">404</h1>
-		<p class="page-deck">This trace is missing, unfinished, or never existed. That also feels strangely appropriate.</p>
-		<div class="hero-actions"><a class="button-cut" href="/">Return to the archive</a></div>
-	</Container>
+	<section class="inner-page">
+		<Container>
+			<p class="inner-label">error / missing fragment</p>
+			<h1 class="inner-title">404</h1>
+			<p class="inner-deck">This trace is missing, unfinished, or never existed. That also feels strangely appropriate.</p>
+			<div class="hero-actions"><a class="archive-action primary" href={import.meta.env.BASE_URL}>Return to the archive<span>→</span></a></div>
+		</Container>
+	</section>
 </BaseLayout>

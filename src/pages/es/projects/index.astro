@@ -9,14 +9,12 @@ const entries = (await getCollection('projects', ({ data }) => data.language ===
 ---
 
 <BaseLayout title="Proyectos — Pabs File" description="Cosas que construí intencionalmente: las útiles, las experimentales y las que todavía están cambiando." lang="es" switchHref="/projects">
-	<Container class="page-hero">
-		<span class="eyebrow">hecho a propósito / casi siempre</span>
-		<h1 class="page-title">Proyectos</h1>
-		<p class="page-deck">Cosas que construí intencionalmente. No solamente qué usan, sino por qué existen, qué fue difícil y qué cambiaron en mí.</p>
-	</Container>
-	<section class="section">
+	<section class="inner-page">
 		<Container>
-			<div class="project-grid">
+			<p class="inner-label">vista interior / proyectos</p>
+			<h1 class="inner-title">Proyectos</h1>
+			<p class="inner-deck">Cosas que construí intencionalmente. La página final contará sus historias; esta vista solamente establece el lenguaje calmado del archivo.</p>
+			<div class="preview-grid">
 				{entries.map((entry, index) => <ProjectPreview {entry} lang="es" featured={index === 0} />)}
 			</div>
 		</Container>

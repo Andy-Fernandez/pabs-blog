@@ -1,11 +1,19 @@
 # Personal Compass
 
-_A snapshot of what I think, want, and believe right now — August 2026._
+- **Status:** active content and editorial compass
+- **Snapshot:** August 2026
+- **Design counterpart:** [Visual Compass](./VISUAL-COMPASS.md)
+- **Implementation plan:** [Roadmap](./ROADMAP.md)
 
 This is not a finished manifesto or a permanent definition of who I am. It is a
 record of where I am today. Some ideas will become clearer, some will change,
 and some may contradict things I believe later. That change is part of the
 point.
+
+This compass guides **what belongs here, what I want the site to reveal, and what
+must remain private or unresolved**. It is internal guidance, not public copy by
+default. The Visual Compass separately defines how the site looks, feels, and
+behaves. The two support one another without becoming the same document.
 
 ## Who I am right now
 
@@ -158,6 +166,94 @@ preserve some chaos, weirdness, surprise, and discovery. It should show its
 process and allow visitors to notice how it changes through time.
 
 It should not pretend that I have reached a final version of myself.
+
+## What I want the website to reveal
+
+I do not want the site to explain all of me at once. I want it to let someone
+notice me through accumulated traces.
+
+That means showing values through real things rather than turning them into
+slogans. A project can reveal how I pay attention to people. A film reflection
+can reveal how I think about memory or love. A cooking mistake can reveal
+curiosity, patience, or frustration. An unfinished note can preserve a question
+before I know how to answer it.
+
+The public site should make room for:
+
+- what I build and why I thought it was worth building;
+- what I am learning, including misunderstandings and changed opinions;
+- what I notice in films, books, food, theatre, my city, and ordinary life;
+- the people and communities that affect the way I create;
+- process, uncertainty, and work that is not impressive yet;
+- joy, affection, anger, confusion, play, and other parts of being alive.
+
+The site does not need to publish everything that is private in this compass.
+Privacy is not dishonesty. The goal is to choose honest traces, not to turn my
+inner life into content.
+
+## How the personal compass becomes content
+
+### Home
+
+The home page should create curiosity and show movement. It should offer a
+small, current selection rather than a complete summary of me.
+
+### About
+
+The About page should be specific and human. It can tell visitors what I care
+about, where I am, what I am exploring, and how I approach making things. It
+should not read like a résumé, a personality inventory, or a polished manifesto.
+
+### Projects
+
+Project stories should show attention, decisions, difficulty, care, mistakes,
+and learning. Technology is part of the story, but it is not the reason the
+story matters.
+
+### Journal
+
+The Journal is where different parts of my life can coexist without being
+forced into separate brands. Films, books, cooking, theatre, technical notes,
+personal thoughts, and ordinary observations are all traces from the same life.
+
+### Archive
+
+Dates, earlier versions, unfinished ideas, and changed opinions should remain
+visible when they are useful. The archive is not only a catalog; it is evidence
+that a person has moved through time.
+
+## Editorial boundaries
+
+To keep the site personal without making it performative:
+
+- Do not invent confidence, certainty, biography, or opinions to complete a
+  layout.
+- Do not polish every sentence until it loses my natural voice.
+- Do not turn vulnerability into a visual gimmick.
+- Do not publish a private detail merely because it would make stronger copy.
+- Do not reduce my interests to content categories or my projects to tool lists.
+- Do not remove contradiction only to make the archive look coherent.
+- Date personal statements when their moment in time matters.
+
+When real information is missing, leave an honest placeholder in the plan and
+ask me later. The site should be built around my life, not a fictional version
+of it.
+
+## Decision test
+
+The Personal Compass answers:
+
+> Is this true to what I care about, and is it a trace I want to leave?
+
+The Visual Compass answers:
+
+> Does this feel like PABS FILE, and is the expression disciplined, readable,
+> and human?
+
+If a visually exciting choice misrepresents me, remove it. If an honest piece
+of content needs a calmer presentation, let the content lead. Accessibility and
+clarity are not compromises to the identity; they are part of the care behind
+it.
 
 ## A working internal compass
 

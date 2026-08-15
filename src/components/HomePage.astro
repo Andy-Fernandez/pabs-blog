@@ -1,10 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import portraitImage from '../assets/pablo-archive-portrait.png';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from './Container.astro';
-import ProjectPreview from './ProjectPreview.astro';
-import LatelyItem from './LatelyItem.astro';
-import { journalType, prefixFor, type Lang } from '../lib/i18n';
+import { formatDate, journalType, prefixFor, type Lang } from '../lib/i18n';
 
 interface Props {
 	lang: Lang;
@@ -14,139 +14,201 @@ interface Props {
 
 const { lang, projects, journal } = Astro.props;
 const prefix = prefixFor(lang);
-const latest = journal[0];
-const latestSection = latest?.data.type === 'movie' ? 'movies' : latest?.data.type === 'book' ? 'books' : 'writings';
-const latestHref = latest ? `${prefix}/${latestSection}/${latest.data.slug}` : `${prefix}/writings`;
-const latestDate = latest && new Intl.DateTimeFormat(lang === 'es' ? 'es-BO' : 'en-US', {
-	month: '2-digit', day: '2-digit', year: '2-digit', timeZone: 'UTC',
-}).format(latest.data.date).replaceAll('/', '.');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const hrefFor = (path = '') => `${base}${prefix}${path}` || '/';
+const journalHref = (entry: CollectionEntry<'journal'>) => {
+	const section = entry.data.type === 'movie' ? 'movies' : entry.data.type === 'book' ? 'books' : 'writings';
+	return hrefFor(`/${section}/${entry.data.slug}`);
+};
+const recentEntries = journal.slice(0, 4);
+const featuredProject = projects.find((entry) => entry.data.featured) ?? projects[0];
 
 const copy = lang === 'es' ? {
-	title: 'Pabs File — Un archivo humano en progreso',
-	description: 'Un archivo personal y creativo sobre las cosas que Pablo construye, piensa, aprende, observa y hace.',
-	eyebrow: 'archivo personal / edición 001 / 2026',
-	titleA: 'Sigo',
-	titleB: 'cambiando.',
-	intro: 'Hola, soy Pabs. Me encanta crear, sentir y observar. Este es el lugar donde guardo las huellas de la persona en la que me voy convirtiendo.',
-	openArchive: 'Abrir el archivo 2026',
+	title: 'Pabs File — Un archivo humano en movimiento',
+	description: 'Un archivo personal de las cosas que Pablo construye, mira, piensa, siente y aprende.',
+	label: 'archivo personal / edición 001 / 2026',
+	lineOne: 'Sigo',
+	lineTwo: 'cambiando.',
+	intro: 'Un archivo personal de pensamientos, proyectos, películas, libros y rastros, reunidos mientras suceden.',
+	secondLine: 'Aquí documento el proceso de convertirme en alguien.',
+	archive: 'Abrir el archivo 2026',
 	about: 'Sobre este humano',
-	note: 'NO ES UN PORTAFOLIO / NO TIENE UN SOLO TEMA / NO ESTÁ TERMINADO',
-	ticket: 'LA PAZ / AGO 2026 / ADMITE A UNA PERSONA CURIOSA',
-	stamp: 'HECHO POR UNA PERSONA',
-	projectsTitle: 'Cosas que construyo',
-	projectsKicker: 'proyectos / intentos / accidentes útiles',
-	latestLabel: 'recién archivado',
-	latestCta: 'Abrir la última entrada',
-	latestNote: 'NUEVO / TODAVÍA ESTOY PENSANDO EN ESTO',
-	latelyTitle: 'Últimamente',
-	latelyKicker: 'una foto borrosa del presente',
-	lately: [
-		['Mirando', 'Cómo se comporta la memoria en las películas'],
-		['Leyendo', 'Notas sobre creatividad e identidad'],
-		['Construyendo', 'Este archivo vivo'],
-		['Cocinando', 'Despacio, con errores y sin receta fija'],
-		['Aprendiendo', 'A publicar antes de sentir que todo está listo'],
+	portraitAlt: 'Pablo caminando, retratado en blanco y negro.',
+	note: ['NO ES UN PORTAFOLIO', 'NO TIENE UN SOLO TEMA', 'NO ESTÁ TERMINADO'],
+	stampTop: 'HECHO POR',
+	stampBottom: 'UNA PERSONA',
+	identityIndex: '01 / identidad en movimiento',
+	identityTitle: 'Identidad en movimiento',
+	identityBody: 'Explorando quién soy a través de lo que hago, miro, pienso, siento y sigo aprendiendo.',
+	currently: 'Ahora mismo',
+	currentlyNote: 'una fotografía breve de agosto de 2026',
+	currentItems: [
+		['Leyendo', 'Erich Fromm y Byung-Chul Han'],
+		['Construyendo', 'Este archivo personal'],
+		['Practicando', 'Teatro, cocina y estar presente'],
+		['Aprendiendo', 'A publicar sin esperar una versión final'],
 	],
-	manifesto: 'La conexión entre todo lo que hay aquí soy yo.',
-	manifestoAside: 'No documento solamente lo que hice. Documento el proceso de convertirme en alguien: lo terminado, lo extraño, lo cotidiano, lo que falló y lo que quizá mañana ya no pienso igual.',
+	recent: 'Adiciones recientes',
+	recentNote: 'rastros / ordenados por fecha',
+	viewAll: 'Ver el archivo completo',
+	projectLabel: 'Proyecto seleccionado / todavía activo',
+	projectFallback: 'El primer proyecto está esperando una historia real.',
+	projectCta: 'Abrir el proyecto',
 } : {
-	title: 'Pabs File — A human archive in progress',
-	description: 'A personal, creative archive of the things Pablo builds, thinks, learns, observes, and makes.',
-	eyebrow: 'personal archive / issue 001 / 2026',
-	titleA: 'Still',
-	titleB: 'becoming.',
-	intro: 'Hi, this is me: Pabs. I love to create, feel, and observe. This is where I keep the traces of the person I am becoming.',
-	openArchive: 'Open the 2026 archive',
+	title: 'Pabs File — A human archive in motion',
+	description: 'A personal archive of the things Pablo builds, sees, thinks, feels, and learns.',
+	label: 'personal archive / issue 001 / 2026',
+	lineOne: 'Still',
+	lineTwo: 'becoming.',
+	intro: 'A personal archive of thoughts, projects, films, books, and traces, collected while they happen.',
+	secondLine: 'This is where I document the process of becoming.',
+	archive: 'Open the 2026 archive',
 	about: 'About this human',
-	note: 'NOT A PORTFOLIO / NOT ONE TOPIC / NOT FINISHED',
-	ticket: 'LA PAZ / AUG 2026 / ADMIT ONE CURIOUS PERSON',
-	stamp: 'MADE BY A PERSON',
-	projectsTitle: 'Things I build',
-	projectsKicker: 'projects / attempts / useful accidents',
-	latestLabel: 'freshly archived',
-	latestCta: 'Open the latest entry',
-	latestNote: 'NEW / STILL THINKING ABOUT THIS',
-	latelyTitle: 'Lately',
-	latelyKicker: 'a blurry picture of right now',
-	lately: [
-		['Watching', 'How memory behaves in films'],
-		['Reading', 'Notes on creativity and identity'],
-		['Building', 'This living archive'],
-		['Cooking', 'Slowly, messily, without a fixed recipe'],
-		['Learning', 'To publish before everything feels finished'],
+	portraitAlt: 'Pablo walking in a black-and-white portrait.',
+	note: ['NOT A PORTFOLIO', 'NOT ONE TOPIC', 'NOT FINISHED'],
+	stampTop: 'MADE BY',
+	stampBottom: 'A PERSON',
+	identityIndex: '01 / identity in motion',
+	identityTitle: 'Identity in motion',
+	identityBody: 'Exploring who I am through what I make, see, think, feel, and keep learning.',
+	currently: 'Currently',
+	currentlyNote: 'a brief picture of August 2026',
+	currentItems: [
+		['Reading', 'Erich Fromm and Byung-Chul Han'],
+		['Building', 'This personal archive'],
+		['Practicing', 'Theatre, cooking, and being present'],
+		['Learning', 'To publish without waiting for a final version'],
 	],
-	manifesto: 'The connection between everything here is me.',
-	manifestoAside: 'I am not only documenting what I did. I am documenting the process of becoming someone: the finished parts, the strange parts, the ordinary parts, what failed, and what I might not believe tomorrow.',
+	recent: 'Recent additions',
+	recentNote: 'traces / ordered by date',
+	viewAll: 'View the full archive',
+	projectLabel: 'Selected project / still active',
+	projectFallback: 'The first project is waiting for a real story.',
+	projectCta: 'Open the project',
 };
 ---
 
 <BaseLayout title={copy.title} description={copy.description} {lang} switchHref={lang === 'en' ? '/es' : '/'}>
-	<section class="section">
-		<Container class="hero">
-			<div>
-				<span class="eyebrow">{copy.eyebrow}</span>
-				<h1 class="hero-title"><span>{copy.titleA}</span><span>{copy.titleB}</span></h1>
-				<p class="hero-copy">{copy.intro}</p>
-				<div class="hero-actions">
-					<a class="button-cut" href={`${prefix}/2026`}>{copy.openArchive}</a>
-					<a class="button-cut secondary" href={`${prefix}/about`}>{copy.about}</a>
+	<section class="home-hero">
+		<Container class="hero-layout">
+			<p class="archive-label">{copy.label}</p>
+
+			<div class="hero-statement-wrap">
+				<h1 class="hero-statement">
+					<span>{copy.lineOne}</span>
+					<span>{copy.lineTwo}</span>
+				</h1>
+
+				<div class="portrait-stage">
+					<div class="motion-ring" aria-hidden="true"></div>
+					<div class="portrait-card">
+						<Image
+							class="portrait-image"
+							src={portraitImage}
+							alt={copy.portraitAlt}
+							widths={[360, 520, 720]}
+							sizes="(min-width: 760px) 42vw, (min-width: 720px) 52vw, 86vw"
+							format="webp"
+							loading="eager"
+							fetchpriority="high"
+						/>
+					</div>
+					<span class="portrait-badge" aria-hidden="true">P / 26</span>
+					<span class="human-stamp">
+						<span>{copy.stampTop}</span>
+						<i aria-hidden="true">★</i>
+						<span>{copy.stampBottom}</span>
+					</span>
 				</div>
 			</div>
 
-			<div class="archive-collage" aria-hidden="true">
-				<div class="tape top"></div>
-				<div class="collage-sheet"></div>
-				<div class="collage-note">{copy.note}</div>
-				<div class="collage-ticket">{copy.ticket}</div>
-				<div class="collage-stamp">{copy.stamp}</div>
+			<div class="hero-support">
+				<div class="hero-intro">
+					<p>{copy.intro}</p>
+					<p>{copy.secondLine}</p>
+					<div class="hero-actions">
+						<a class="archive-action primary" href={hrefFor('/2026')}>{copy.archive}<span>→</span></a>
+						<a class="archive-action secondary" href={hrefFor('/about')}>{copy.about}<span>→</span></a>
+					</div>
+				</div>
+
 			</div>
 		</Container>
 	</section>
 
-	{latest && (
-		<section class="latest-drop-section">
-			<Container>
-				<a class="latest-drop" href={latestHref}>
-					<span class="latest-side-note">{copy.latestNote}</span>
-					<span class="latest-meta">{copy.latestLabel} / {journalType[lang][latest.data.type]} / {latestDate}</span>
-					<strong>{latest.data.title}</strong>
-					<span class="latest-description">{latest.data.description}</span>
-					<span class="latest-cta">{copy.latestCta} →</span>
+	<section class="identity-section" aria-labelledby="identity-title">
+		<Container class="identity-grid">
+			<div class="identity-card">
+				<div class="identity-orbit" aria-hidden="true"><span></span></div>
+				<p class="module-index">{copy.identityIndex}</p>
+				<h2 id="identity-title">{copy.identityTitle}</h2>
+				<p>{copy.identityBody}</p>
+			</div>
+			<aside class="paper-note" aria-label={lang === 'es' ? 'Nota del archivo' : 'Archive note'}>
+				<span class="note-tape" aria-hidden="true"></span>
+				{copy.note.map((line) => <strong>{line}</strong>)}
+			</aside>
+		</Container>
+	</section>
+
+	<section class="live-archive" aria-label={lang === 'es' ? 'Archivo vivo' : 'Live archive'}>
+		<Container class="live-grid">
+			<article class="archive-panel current-panel">
+				<header class="panel-header">
+					<div>
+						<h2><span class="live-dot" aria-hidden="true"></span>{copy.currently}</h2>
+						<p>{copy.currentlyNote}</p>
+					</div>
+					<span>01</span>
+				</header>
+				<dl class="current-list">
+					{copy.currentItems.map(([label, value]) => (
+						<div>
+							<dt>{label}</dt>
+							<dd>{value}</dd>
+						</div>
+					))}
+				</dl>
+			</article>
+
+			<article class="archive-panel recent-panel">
+				<header class="panel-header">
+					<div>
+						<h2>{copy.recent}</h2>
+						<p>{copy.recentNote}</p>
+					</div>
+					<span>02</span>
+				</header>
+				<div class="recent-list">
+					{recentEntries.map((entry) => (
+						<a href={journalHref(entry)}>
+							<span>{journalType[lang][entry.data.type]}</span>
+							<strong>{entry.data.title}</strong>
+							<time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
+							<i aria-hidden="true">→</i>
+						</a>
+					))}
+				</div>
+				<a class="panel-link" href={hrefFor('/2026')}>{copy.viewAll}<span>→</span></a>
+			</article>
+		</Container>
+	</section>
+
+	<section class="selected-project" aria-labelledby="project-title">
+		<Container>
+			<p class="project-label">{copy.projectLabel}</p>
+			{featuredProject ? (
+				<a class="project-feature" href={hrefFor(`/projects/${featuredProject.data.slug}`)}>
+					<div>
+						<span>{featuredProject.data.year} / {featuredProject.data.status}</span>
+						<h2 id="project-title">{featuredProject.data.title}</h2>
+						<p>{featuredProject.data.description}</p>
+					</div>
+					<strong>{copy.projectCta} →</strong>
 				</a>
-			</Container>
-		</section>
-	)}
-
-	<section class="section">
-		<Container>
-			<div class="section-heading">
-				<h2>{copy.projectsTitle}</h2>
-				<span class="section-kicker">{copy.projectsKicker}</span>
-			</div>
-			<div class="project-grid">
-				{projects.length > 0 ? projects.slice(0, 2).map((entry, index) => <ProjectPreview {entry} {lang} featured={index === 0} />) : (
-					<p class="empty-note">{lang === 'es' ? 'Este espacio está esperando su primer proyecto.' : 'This space is waiting for its first project.'}</p>
-				)}
-			</div>
-		</Container>
-	</section>
-
-	<section class="section">
-		<Container>
-			<div class="section-heading">
-				<h2>{copy.latelyTitle}</h2>
-				<span class="section-kicker">{copy.latelyKicker}</span>
-			</div>
-			<div class="lately-grid">
-				{copy.lately.map(([label, text], index) => <LatelyItem number={String(index + 1).padStart(2, '0')} {label} {text} />)}
-			</div>
-		</Container>
-	</section>
-
-	<section class="section manifesto-section">
-		<Container>
-			<p class="manifesto-line"><mark>{copy.manifesto}</mark></p>
-			<p class="manifesto-aside">{copy.manifestoAside}</p>
+			) : (
+				<p id="project-title" class="empty-state">{copy.projectFallback}</p>
+			)}
 		</Container>
 	</section>
 </BaseLayout>

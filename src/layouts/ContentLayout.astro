@@ -15,28 +15,29 @@ interface Props {
 }
 
 const { title, description, lang, switchHref, kind, dateOrYear, tags = [], backHref } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const back = backHref.startsWith(base) ? backHref : `${base}${backHref}`;
 ---
 
 <BaseLayout title={`${title} — Pabs File`} description={description} {lang} {switchHref}>
-	<article>
-		<Container class="content-header">
-			<div class="meta-line">
-				<span>{kind}</span><span>/</span><span>{dateOrYear}</span>
-			</div>
-			<h1 class="page-title">{title}</h1>
-			<p class="content-deck">{description}</p>
+	<article class="article-preview">
+		<Container class="article-header">
+			<p class="inner-label">{lang === 'es' ? 'vista de lectura / diseño provisional' : 'reading view / provisional design'}</p>
+			<p class="article-meta">{kind} / {dateOrYear}</p>
+			<h1>{title}</h1>
+			<p class="article-deck">{description}</p>
 			{tags.length > 0 && (
-				<div class="content-meta" aria-label={lang === 'es' ? 'Etiquetas' : 'Tags'}>
-					{tags.map((tag) => <span class="label">{tag}</span>)}
+				<div class="tag-list" aria-label={lang === 'es' ? 'Etiquetas' : 'Tags'}>
+					{tags.map((tag) => <span>{tag}</span>)}
 				</div>
 			)}
 		</Container>
 
-		<div class="content-body-wrap">
+		<div class="article-body">
 			<Container>
 				<div class="prose">
 					<slot />
-					<a class="back-link" href={backHref}>← {ui[lang].back}</a>
+					<a class="back-link" href={back}>← {ui[lang].back}</a>
 				</div>
 			</Container>
 		</div>

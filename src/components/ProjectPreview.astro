@@ -9,14 +9,13 @@ interface Props {
 }
 
 const { entry, lang, featured = false } = Astro.props;
-const copy = ui[lang];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = `${base}${prefixFor(lang)}/projects/${entry.data.slug}`;
 ---
 
-<article class:list={['project-card', { featured }]}>
-	<div class="meta-line">
-		<span>{lang === 'es' ? 'proyecto' : 'project'}</span><span>/</span><span>{entry.data.status}</span><span>/</span><span>{entry.data.year}</span>
-	</div>
+<article class:list={['preview-card', { featured }]}>
+	<p class="preview-meta">{lang === 'es' ? 'proyecto' : 'project'} / {entry.data.status} / {entry.data.year}</p>
 	<h3>{entry.data.title}</h3>
 	<p>{entry.data.description}</p>
-	<a class="card-link" href={`${prefixFor(lang)}/projects/${entry.data.slug}`}>{copy.view} →</a>
+	<a href={href}>{ui[lang].view}<span>→</span></a>
 </article>

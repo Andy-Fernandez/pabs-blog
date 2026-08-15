@@ -12,55 +12,56 @@ interface Props {
 
 const { lang, journal, projects } = Astro.props;
 const prefix = prefixFor(lang);
-const journalHref = (entry: CollectionEntry<'journal'>) => {
-	const section = entry.data.type === 'movie' ? 'movies' : entry.data.type === 'book' ? 'books' : 'writings';
-	return `${prefix}/${section}/${entry.data.slug}`;
-};
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const hrefFor = (path: string) => `${base}${prefix}${path}`;
 
 const items = [
-	...journal.map((entry) => ({
-		timestamp: entry.data.date.valueOf(),
-		date: formatDate(entry.data.date, lang),
-		kind: journalType[lang][entry.data.type],
-		title: entry.data.title,
-		href: journalHref(entry),
-	})),
+	...journal.map((entry) => {
+		const section = entry.data.type === 'movie' ? 'movies' : entry.data.type === 'book' ? 'books' : 'writings';
+		return {
+			timestamp: entry.data.date.valueOf(),
+			date: formatDate(entry.data.date, lang),
+			kind: journalType[lang][entry.data.type],
+			title: entry.data.title,
+			href: hrefFor(`/${section}/${entry.data.slug}`),
+		};
+	}),
 	...projects.map((entry) => ({
-		timestamp: new Date(`${entry.data.year}-01-01T00:00:00`).valueOf(),
+		timestamp: new Date(`${entry.data.year}-01-01T00:00:00Z`).valueOf(),
 		date: String(entry.data.year),
 		kind: lang === 'es' ? 'proyecto' : 'project',
 		title: entry.data.title,
-		href: `${prefix}/projects/${entry.data.slug}`,
+		href: hrefFor(`/projects/${entry.data.slug}`),
 	})),
 ].sort((a, b) => b.timestamp - a.timestamp);
 
 const copy = lang === 'es' ? {
 	title: '2026 — Archivo de Pabs',
-	description: 'Las huellas publicadas por Pablo durante 2026.',
-	eyebrow: 'caja de memoria / año uno',
-	deck: 'Lo que estaba construyendo, pensando y aprendiendo. Una versión anterior de mí, guardada sin fingir que ya estaba terminada.',
+	description: 'Una vista cronológica de las huellas publicadas durante 2026.',
+	label: 'vista interior / índice cronológico',
+	deck: 'Una versión simple del archivo futuro. El contenido es real; esta página todavía no es una prioridad visual.',
 } : {
 	title: '2026 — Pabs Archive',
-	description: 'The traces Pablo published during 2026.',
-	eyebrow: 'memory box / year one',
-	deck: 'What I was building, thinking, and learning. An earlier version of me, kept without pretending it was already finished.',
+	description: 'A chronological view of the traces published during 2026.',
+	label: 'inner-page preview / chronological index',
+	deck: 'A simple version of the future archive. The content is real; this page is not a visual priority yet.',
 };
 ---
 
 <BaseLayout title={copy.title} description={copy.description} {lang} switchHref={lang === 'es' ? '/2026' : '/es/2026'}>
-	<Container class="page-hero">
-		<span class="eyebrow">{copy.eyebrow}</span>
-		<h1 class="page-title">2026</h1>
-		<p class="page-deck">{copy.deck}</p>
-	</Container>
-	<section class="section">
+	<section class="inner-page">
 		<Container>
-			<div class="archive-list">
-				{items.map((item) => (
-					<a class="archive-row" href={item.href}>
-						<time class="archive-date">{item.date}</time>
-						<span class="archive-title">{item.title}</span>
-						<span class="archive-kind">{item.kind} →</span>
+			<p class="inner-label">{copy.label}</p>
+			<h1 class="inner-title">2026</h1>
+			<p class="inner-deck">{copy.deck}</p>
+
+			<div class="inner-archive-list">
+				{items.map((item, index) => (
+					<a href={item.href}>
+						<span>{String(index + 1).padStart(2, '0')}</span>
+						<strong>{item.title}</strong>
+						<small>{item.kind} / {item.date}</small>
+						<i aria-hidden="true">→</i>
 					</a>
 				))}
 			</div>

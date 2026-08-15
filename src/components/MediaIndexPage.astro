@@ -12,25 +12,25 @@ interface Props {
 
 const { lang, type, entries } = Astro.props;
 const prefix = prefixFor(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const section = type === 'movie' ? 'movies' : 'books';
 const isMovie = type === 'movie';
 const copy = lang === 'es'
-	? isMovie ? {
-		title: 'Películas', eyebrow: 'mirar / sentir / discutir / volver a mirar',
-		description: 'Películas que se quedaron conmigo, imágenes que regresan y opiniones que probablemente cambien.',
-		meta: 'película sobre la que tengo opiniones', cta: 'Leer notas de la película', empty: 'La primera película todavía está esperando.',
-	} : {
-		title: 'Libros', eyebrow: 'leer / marcar / doblar / devolver',
-		description: 'Ideas subrayadas, desacuerdos, páginas dobladas y libros que cambiaron algo en mi forma de mirar.',
-		meta: 'fragmentos / márgenes / ideas robadas', cta: 'Abrir las notas', empty: 'El primer libro todavía está esperando.',
+	? {
+		title: isMovie ? 'Películas' : 'Libros',
+		description: isMovie
+			? 'Películas que se quedaron conmigo y opiniones que probablemente cambiarán.'
+			: 'Ideas subrayadas, desacuerdos y libros que cambiaron algo en mi forma de mirar.',
+		label: 'vista interior / todavía en construcción',
+		empty: 'La primera entrada todavía está esperando.',
 	}
-	: isMovie ? {
-		title: 'Movies', eyebrow: 'watch / feel / argue / rewatch',
-		description: 'Films that stayed with me, images that return, and opinions that will probably change.',
-		meta: 'films I have opinions about', cta: 'Read the movie notes', empty: 'The first movie is still waiting.',
-	} : {
-		title: 'Books', eyebrow: 'read / mark / fold / return',
-		description: 'Underlined ideas, disagreements, folded pages, and books that changed something in the way I look.',
-		meta: 'fragments / margins / stolen ideas', cta: 'Open the notes', empty: 'The first book is still waiting.',
+	: {
+		title: isMovie ? 'Movies' : 'Books',
+		description: isMovie
+			? 'Films that stayed with me and opinions that will probably change.'
+			: 'Underlined ideas, disagreements, and books that changed the way I look.',
+		label: 'inner-page preview / still under construction',
+		empty: 'The first entry is still waiting.',
 	};
 ---
 
@@ -38,34 +38,23 @@ const copy = lang === 'es'
 	title={`${copy.title} — Pabs File`}
 	description={copy.description}
 	{lang}
-	switchHref={`${lang === 'es' ? '' : '/es'}/${type === 'movie' ? 'movies' : 'books'}`}
+	switchHref={`${lang === 'es' ? '' : '/es'}/${section}`}
 >
-	<Container class="page-hero media-page-hero">
-		<span class="eyebrow">{copy.eyebrow}</span>
-		<h1 class="page-title">{copy.title}</h1>
-		<p class="page-deck">{copy.description}</p>
-	</Container>
-
-	<section class:list={['section', isMovie ? 'movies-section' : 'books-section']}>
+	<section class="inner-page">
 		<Container>
-			<div class="section-heading">
-				<h2>{lang === 'es' ? 'Entradas' : 'Entries'}</h2>
-				<span class="section-kicker">{copy.meta}</span>
-			</div>
+			<p class="inner-label">{copy.label}</p>
+			<h1 class="inner-title">{copy.title}</h1>
+			<p class="inner-deck">{copy.description}</p>
 
-			{entries.length === 0 ? <p class="empty-note">{copy.empty}</p> : (
-				<div class:list={['media-entry-list', isMovie ? 'movie-entry-list' : 'book-entry-list']}>
+			{entries.length === 0 ? <p class="empty-state">{copy.empty}</p> : (
+				<div class="inner-archive-list">
 					{entries.map((entry, index) => (
-						<article class:list={[isMovie ? 'movie-note' : 'book-scrap', 'media-entry-card', { 'media-entry-featured': index === 0 }]}>
-							<div class="meta-line">
-								<span>{entry.data.label ?? type}</span><span>/</span><time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
-							</div>
-							<h3>{entry.data.title}</h3>
-							{entry.data.subject && <p class="entry-subject">{entry.data.subject}{entry.data.author ? ` — ${entry.data.author}` : ''}</p>}
-							<p>{entry.data.description}</p>
-							{entry.data.rating && <div class="rating" aria-label={`${entry.data.rating} out of 5`}>{'★'.repeat(entry.data.rating)}{'☆'.repeat(5 - entry.data.rating)} <small>{entry.data.rating}/5</small></div>}
-							<a class="media-entry-link" href={`${prefix}/${isMovie ? 'movies' : 'books'}/${entry.data.slug}`}>{copy.cta} →</a>
-						</article>
+						<a href={`${base}${prefix}/${section}/${entry.data.slug}`}>
+							<span>{String(index + 1).padStart(2, '0')}</span>
+							<strong>{entry.data.title}</strong>
+							<small>{entry.data.subject ?? type} / {formatDate(entry.data.date, lang)}</small>
+							<i aria-hidden="true">→</i>
+						</a>
 					))}
 				</div>
 			)}

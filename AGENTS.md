@@ -38,6 +38,21 @@ it communicates that the archive was made by a person and is allowed to change.
 When design or architecture decisions are unclear, prefer the option that makes
 the site feel more like memory in motion and less like a conventional portfolio.
 
+## Project Compasses
+
+Use the project documents in this order:
+
+1. `docs/VISUAL-COMPASS.md` is the primary implementation authority for how the
+   site looks, feels, and behaves.
+2. `docs/PERSONAL-COMPASS.md` decides what belongs and what the archive should
+   reveal.
+3. `docs/ROADMAP.md` records the current implementation order and open inputs.
+4. Existing screens are implementation evidence, not design authority.
+
+Do not blend these responsibilities. The Personal Compass is not public copy by
+default, and the Visual Compass must not invent personal facts to complete a
+composition.
+
 The website revolves around two main concepts:
 
 ```text
@@ -524,26 +539,32 @@ Projects should feel like stories of things I created.
 
 # Visual Direction
 
-The website should feel:
+The canonical specification is `docs/VISUAL-COMPASS.md`.
 
-* fresh
-* personal
-* creative
-* minimal
-* thoughtful
-* slightly experimental
-* expressive
-* readable
+The creative north star is:
 
-It should not feel like:
+> Independent editorial publication × personal archive × restrained fanzine.
 
-* a SaaS landing page
-* a dashboard
-* a résumé template
-* a generic developer portfolio
-* a corporate website
+The site should feel monochrome, typographic, tactile, human, intentionally
+unfinished, and calm beneath its visual attitude. Spider-Punk and fanzine culture
+are influences, not the product.
 
-The interface should allow personality without becoming performative.
+Apply these rules throughout the implementation:
+
+* Compose mobile first; desktop expands the mobile hierarchy.
+* Give each viewport one dominant visual gesture.
+* Keep roughly 85–90% paper, 8–12% ink, and less than 5% archive blue.
+* Use at most two typography voices: condensed display and literary mono.
+* Resolve deliberate asymmetry and overlaps onto a 4/8/12-column grid.
+* Give digital controls soft geometry and physical paper objects sharp geometry.
+* Reuse a small analog vocabulary—tape, stamp, hand-drawn line, paper note,
+  circular line, blue dot, and arrow—with consistent meanings.
+* Make long-form pages substantially calmer than the homepage.
+* Treat documentary photography as archive evidence, not decoration.
+* Never let texture, collage, or controlled imperfection damage accessibility or
+  reading order.
+
+The page may look handmade, but the system underneath must be disciplined.
 
 ---
 
@@ -585,16 +606,28 @@ Example:
 
 ```css
 :root {
-  --color-background: #ffffff;
-  --color-text: #181817;
-  --color-muted: #6b6b68;
-  --color-border: #e8e8e5;
+  --paper: #f7f7f5;
+  --paper-pure: #ffffff;
+  --paper-muted: #f1f1f1;
+  --ink: #070707;
+  --ink-soft: #202020;
+  --gray-mid: #737373;
+  --gray-line: #d6d7d8;
+  --blue: #809fcf;
+  --blue-dark: #6f8fc3;
+  --blue-soft: #c3d2ec;
 
   --content-width: 720px;
-  --page-width: 1120px;
+  --page-width: 1180px;
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 300ms;
 }
 ```
 

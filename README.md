@@ -8,9 +8,18 @@ finished version of me. It preserves traces of the process: projects, films,
 books, food, ideas, experiments, failures, and curiosities that are shaping who
 I become.
 
-The site should feel human, imperfect, expressive, and made by hand—closer to a
-fanzine, a notebook, or a room full of meaningful things than a corporate
-portfolio.
+The site should feel like an independent editorial publication crossed with a
+personal archive and a restrained fanzine: human, tactile, expressive, readable,
+and made by hand without becoming chaotic.
+
+## Project compasses
+
+- [`docs/VISUAL-COMPASS.md`](docs/VISUAL-COMPASS.md) is the canonical visual and
+  interaction direction.
+- [`docs/PERSONAL-COMPASS.md`](docs/PERSONAL-COMPASS.md) guides what belongs and
+  what the archive should reveal.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md) tracks the rebrand and the personal inputs
+  still needed.
 
 ## Structure
 

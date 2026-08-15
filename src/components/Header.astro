@@ -11,37 +11,49 @@ interface Props {
 const { lang, switchHref, currentPath = Astro.url.pathname } = Astro.props;
 const copy = ui[lang];
 const prefix = prefixFor(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const hrefFor = (path = '') => `${base}${prefix}${path}` || '/';
+const languageHref = switchHref.startsWith(base) ? switchHref : `${base}${switchHref}`;
 
 const links = [
-	{ href: `${prefix}/about`, label: copy.nav.about },
-	{ href: `${prefix}/writings`, label: copy.nav.writings },
-	{ href: `${prefix}/movies`, label: copy.nav.movies },
-	{ href: `${prefix}/books`, label: copy.nav.books },
-	{ href: `${prefix}/projects`, label: copy.nav.projects },
-	{ href: `${prefix}/2026`, label: copy.nav.archive },
+	{ href: hrefFor('/about'), label: copy.nav.about },
+	{ href: hrefFor('/projects'), label: copy.nav.projects },
+	{ href: hrefFor('/writings'), label: copy.nav.writings },
+	{ href: hrefFor('/movies'), label: copy.nav.movies },
+	{ href: hrefFor('/books'), label: copy.nav.books },
+	{ href: hrefFor('/2026'), label: copy.nav.archive },
 ];
 
-const isCurrent = (href: string) => currentPath === href || (href !== `${prefix}/2026` && currentPath.startsWith(`${href}/`));
+const isCurrent = (href: string) => currentPath === href || currentPath.startsWith(`${href}/`);
 ---
 
 <a class="skip-link" href="#main">{lang === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a>
 
 <header class="site-header">
 	<Container class="header-inner">
-		<a class="wordmark" href={prefix || '/'} aria-label={lang === 'es' ? 'Inicio de Pabs' : "Pabs' home"}>
-			Pabs <span>File</span>
+		<a class="wordmark" href={hrefFor()} aria-label={lang === 'es' ? 'Inicio de Pabs File' : 'Pabs File home'}>
+			<span class="wordmark-pabs">PABS</span><span class="wordmark-file">FILE</span>
 		</a>
 
-		<div class="header-actions">
-			<nav class="site-nav" aria-label={lang === 'es' ? 'Navegación principal' : 'Primary navigation'}>
-				{links.map((link) => (
-					<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>
-				))}
-			</nav>
-
-			<a class="language-switch" href={switchHref} hreflang={lang === 'en' ? 'es' : 'en'} aria-label={copy.languageLabel}>
+		<div class="header-controls">
+			<a class="language-switch" href={languageHref} hreflang={lang === 'en' ? 'es' : 'en'} aria-label={copy.languageLabel}>
 				{lang === 'en' ? 'EN / ES' : 'ES / EN'}
 			</a>
+
+			<details class="site-menu">
+				<summary>
+					<span>{lang === 'es' ? 'Menú' : 'Menu'}</span>
+					<i class="menu-icon" aria-hidden="true"></i>
+				</summary>
+				<nav aria-label={lang === 'es' ? 'Navegación principal' : 'Primary navigation'}>
+					{links.map((link, index) => (
+						<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+							<span>{String(index + 1).padStart(2, '0')}</span>
+							{link.label}
+						</a>
+					))}
+				</nav>
+			</details>
 		</div>
 	</Container>
 </header>

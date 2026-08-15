@@ -1,161 +1,181 @@
-# Website V1 Roadmap
+# PABS FILE Rebrand Roadmap
 
-This document tracks what the first publishable version needs and the few
-decisions that should be made before or during implementation.
+- **Status:** active implementation checklist
+- **Current phase:** Phase 2 — home review
+- **Last reviewed:** 2026-08-15
+- **Design authority:** [Visual Compass](./VISUAL-COMPASS.md)
+- **Content authority:** [Personal Compass](./PERSONAL-COMPASS.md)
 
-The goal is to publish a small, personal website that can grow naturally.
+This roadmap records **what changes, in what order, and what is still missing**.
+It does not define visual or personal direction.
 
-## V1 Outcome
+Update checkboxes when work lands. If a task needs a new design rule, revise the
+Visual Compass first. If it needs personal information that is not known, leave
+the task open and ask Pablo rather than inventing it.
 
-Version 1 is ready when someone can:
+The active product slice is the home page. Other routes remain available as calm
+visual previews, but their full design is deferred until Pablo reopens that scope.
 
-- understand who Pablo is and what he cares about
-- explore selected projects
-- read journal entries about different interests
-- see what Pablo is interested in lately
-- navigate comfortably on mobile and desktop
+## Baseline to preserve
 
-## Decisions
+- Astro, TypeScript, Astro components, Markdown, and native CSS.
+- Static-first rendering with no UI framework, backend, database, auth, or CMS.
+- Two content collections: `projects` and `journal`.
+- Journal types: `thought`, `movie`, `book`, `cooking`, `tech`, and `life`.
+- English as the default interface and Spanish under `/es`.
+- Existing routes, schemas, draft filtering, and layouts unless a focused usability
+  issue requires a change.
+- The living-archive idea: different traces are connected by Pablo.
 
-Only decide what is needed for V1. Use the recommended option when there is no
-strong preference yet; it can be changed later.
+## Current implementation snapshot
 
-### Confirmed
+The former visual layer has been replaced. The current implementation includes:
 
-- [x] **Languages:** English by default, with a visitor-controlled Spanish option
-  - Use English for the default interface and routes. Visitors can switch the site
-    interface to Spanish.
-  - Entries may be written in either language and will declare their language in
-    the content metadata. Do not require every entry to be translated.
-- [x] **Display name:** `Pablo Fernandez (Pabs)`
-- [x] **Homepage introduction (working copy):**
-  `Hi this is me Pabs love create, feel and innate observer`
-  - Preserve this voice for now. Review the final wording when the real homepage
-    content is added.
-- [x] **Visual personality:** monochrome Spider-Punk editorial fanzine
-  - Use photocopy and halftone texture, mixed heavy sans-serif and typewriter
-    typography, sharp or torn edges, collage layers, and occasional sticker-like
-    elements.
-  - Keep the expressive treatment controlled around long-form writing so Journal
-    entries remain comfortable to read.
-- [x] **Core palette:** white `#FFFFFF`, black `#000000`, and newspaper gray
-  `#1A1A1A`
-  - Treat black and white as the main contrast. Add another accent color later only
-    if it has a clear purpose.
-- [x] **Architecture and deployment:** static Astro site on a simple static host
-- [x] **Analytics:** Cloudflare Web Analytics
-  - Use its basic page views, visits, top URLs, and referrers. This is enough for V1
-    and does not require a custom analytics dashboard.
+- the v0.2 palette, two typography voices, spacing, radius, motion, and texture;
+- a compact header with full navigation and language switching;
+- a mobile-first home with one dominant statement, Pablo's approved documentary
+  portrait, current activity, recent entries, and one selected project;
+- a shared calm preview language for secondary routes and long-form content;
+- base-path-safe internal navigation for local and GitHub Pages builds;
+- an installable PWA foundation with manifest, app icons, and offline fallback.
 
-### Needed Before Design
+The remaining gaps are final personal copy, more approved documentary material,
+and Pablo's acceptance of the home composition.
 
-- [x] Use a concise `EN / ES` language control in the shared navigation
-- [x] Write or approve the Spanish version of the homepage introduction
+This snapshot describes the repository on 2026-08-15. Update or remove an item when
+the related phase is completed.
 
-### Needed Before Adding Content
+## Phase 0 — align the rules
 
-- [ ] Choose 2 projects to publish first
-- [ ] Choose 4-6 journal entries to publish first
-- [ ] Decide which external links to show: email, GitHub, LinkedIn, or others
-- [ ] Gather available project screenshots and personal images
-- [ ] Write the first `Lately` items: Watching, Reading, Building, Cooking, and
-  Learning
+**Status:** complete
 
-### Needed Before Launch
+- [x] Establish the Visual Compass as the canonical design authority.
+- [x] Keep historical visual-document paths as pointers rather than parallel specs.
+- [x] Separate personal truth from visual expression in the Personal Compass.
+- [x] Reconcile type-of-trace navigation with the two-collection architecture.
+- [x] Review the supplied homepage concept and separate binding relationships from
+  placeholder people, copy, and entries.
+- [x] Record the document hierarchy in `AGENTS.md` and `README.md`.
 
-- [ ] Choose the specific static hosting provider
-- [ ] Choose the initial domain or temporary deployment URL
+## Phase 1 — foundations and shared shell
 
-## Build Checklist
+**Status:** implemented; visual review pending
 
-### 1. Foundations
+- [x] Replace the global palette with the Visual Compass tokens.
+- [x] Define the two typography voices and choose a maintainable delivery method.
+- [x] Define a small spacing scale, 4/8/12-column grid, content measure, radius
+  scale, borders, and three motion timings.
+- [x] Reduce global texture to a near-subconscious layer.
+- [x] Reserve soft shadows for physical artifacts; remove heavy offset shadows from
+  ordinary digital cards.
+- [x] Standardize focus rings, touch targets, icon weight, and reduced motion.
+- [x] Rework `Header` and `Footer` as calm shared infrastructure.
+- [x] Make the wordmark, language control, and complete navigation usable at every
+  width.
+- [x] Verify the shell at narrow mobile, wide mobile, tablet, and desktop widths.
 
-- [x] Replace the Astro starter homepage and metadata
-- [x] Create global CSS variables for colors, typography, spacing, widths, borders,
-  radius, and transitions
-- [x] Create `BaseLayout`
-- [x] Create `Header`, `Footer`, and `Container`
-- [x] Add English and Spanish interface dictionaries with English as the fallback
-- [x] Add static localized routes and preserve the current page when switching
-  languages where a translation exists
-- [x] Add reusable page title, description, and Open Graph metadata
-- [x] Replace the starter favicon
-- [x] Add a reduced-motion mode for any collage or sticker animation
+**Done when:** a plain content page already feels like PABS FILE before any collage
+or special home composition is added.
 
-### 2. Content
+## Phase 2 — home
 
-- [x] Create the `projects` content collection
-- [x] Create the `journal` content collection
-- [x] Add simple schemas in `src/content.config.ts`
-- [x] Add `language: en | es` to project and journal content
-- [x] Support journal types: thought, movie, book, cooking, tech, and life
-- [x] Exclude draft content from production pages
-- [x] Add the first real project and journal entry early to guide the design
+**Status:** implemented; awaiting Pablo's review
 
-### 3. Pages
+- [x] Build the hero in the canonical mobile order: header, label, statement,
+  portrait, copy, actions, supporting modules.
+- [x] Keep `STILL BECOMING.` as working copy until Pablo approves or replaces it.
+- [x] Use only approved documentary imagery; provide an honest non-image state until
+  it exists.
+- [x] Give both hero actions equal dimensions and complete interaction states.
+- [x] Limit the hero to one portrait composition, one paper note, and at most one
+  supporting motif.
+- [x] Expand the mobile hierarchy into one controlled statement/portrait gesture on
+  wide screens.
+- [x] Rework `Lately` into a lightweight current-status module.
+- [x] Merge recent content into one chronological archive stream.
+- [x] Give `CURRENTLY` and `RECENT ADDITIONS` the same card language.
+- [x] Use thumbnails only when entries have meaningful approved imagery.
+- [x] Present selected projects as stories and traces, not technology cards.
 
-- [x] Build `/` with Introduction, Selected Projects, Lately, and Latest Journal
-  Entries
-- [x] Build `/about`
-- [x] Build `/projects`
-- [x] Build `/projects/[slug]`
-- [x] Build `/writings`
-- [x] Build `/writings/[slug]`
-- [x] Build distinct `/movies` and `/movies/[slug]` views
-- [x] Build distinct `/books` and `/books/[slug]` views
-- [x] Build a simple `404` page
+**Done when:** the first phone viewport feels bold and personal, one gesture is
+dominant, and the page remains understandable without decoration.
 
-### 4. Reusable Components
+## Phase 3 — archive and detail pages
 
-- [x] Create `ProjectPreview`
-- [x] Create `JournalEntryPreview`
-- [x] Create `LatelyItem`
-- [ ] Create `Tag` only if tags are displayed in more than one place
-- [x] Create shared prose styles for project and journal bodies
+**Status:** deferred; routes currently show visual previews only
 
-### 5. Content For Launch
+- [ ] Create one archive-list language for Projects and Journal views.
+- [ ] Distinguish trace types through labels and metadata, not separate design
+  systems.
+- [ ] Calm article headers and bodies to the `68ch` reading measure.
+- [ ] Limit each detail page to one meaningful annotation treatment.
+- [ ] Let project pages support screenshots and process without making the story
+  secondary.
+- [ ] Add related and previous/next navigation only when content volume justifies it.
+- [ ] Confirm titles, descriptions, Open Graph metadata, dates, language attributes,
+  and draft behavior on representative routes.
 
-- [x] Add a real homepage introduction
-- [ ] Add the About page copy
-- [ ] Publish at least 2 project stories
-- [ ] Publish at least 4 journal entries across different types
-- [ ] Add current `Lately` content
-- [ ] Add meaningful images with useful alt text
+**Done when:** a film reflection and a technical note are distinct traces but
+clearly belong to the same archive.
 
-### 6. Quality And Launch
+## Phase 4 — real personal content
 
-- [ ] Test the main routes on mobile and desktop
-- [ ] Check keyboard navigation, heading order, contrast, and focus states
-- [ ] Confirm text and images do not overflow or overlap
-- [ ] Confirm every public page has a useful title and description
-- [ ] Run `npm run build`
-- [ ] Review the production build in a browser
-- [ ] Add the Cloudflare Web Analytics beacon to the shared layout
-- [ ] Verify visits and page views after the first production deployment
-- [ ] Deploy the site
+- [ ] Replace generic About copy with Pablo's approved current story.
+- [ ] Replace placeholder `Lately` items with true current items.
+- [ ] Complete two real project stories.
+- [ ] Publish four to six Journal entries representing more than one part of life.
+- [ ] Add approved project screenshots and documentary photographs with meaningful
+  alt text.
+- [ ] Choose public contact links.
+- [ ] Review English and Spanish copy for natural voice; translations are optional
+  per entry.
 
-## Not In V1
+**Done when:** removing the styling would still leave a site that could only belong
+to Pablo.
 
-Do not delay launch for:
+## Phase 5 — quality and publish
 
-- authentication or user accounts
-- a database, backend, or CMS
-- comments, likes, or social features
-- advanced search or filtering
-- separate collections for books, movies, cooking, or thoughts
-- newsletters or recommendation systems
-- complex animations
-- an analytics dashboard
+- [x] Add the PWA manifest, required app icons, and an offline service worker.
+- [ ] Test primary routes with keyboard and assistive-technology basics.
+- [ ] Check heading order, focus, contrast, touch targets, alt text, language, and
+  reduced motion.
+- [x] Check text, image, collage, and metadata overflow at representative widths.
+- [ ] Run the Visual Compass acceptance test on the home page and two detail pages.
+- [x] Run the production build and review it locally.
+- [ ] Confirm the host, production URL, canonical URLs, and deployment config.
+- [ ] Add privacy-respecting analytics only if Pablo still wants it for V1.
+- [ ] Publish.
 
-## Recommended First Milestone
+## Inputs needed from Pablo
 
-Build one complete path through the site:
+The implementation can begin without these. Content completion cannot.
 
-1. Shared layout and navigation
-2. Homepage
-3. Projects collection with one real project
-4. Journal collection with one real entry
-5. Mobile and desktop visual review
+- [ ] A short answer to “Who are you right now?” in Pablo's natural words.
+- [ ] Three to five subjects he keeps returning to.
+- [ ] Two projects and the real story behind each.
+- [ ] Current Watching, Reading, Building, Cooking, and Learning items.
+- [ ] One possible portrait and several ordinary documentary photographs.
+- [ ] A decision about which Personal Compass material may be public, private, or
+  expressed indirectly.
+- [ ] Preferred public links and contact method.
+- [ ] Phrases in English or Spanish that feel especially natural or wrong.
+- [ ] Hosting provider and production domain or temporary URL.
 
-Once this milestone feels personal and readable, use the same foundations to
-complete the remaining pages and content.
+## Release gate
+
+The rebrand is ready to publish when:
+
+- [ ] the first impression is curiosity, not “developer portfolio”;
+- [ ] mobile feels composed rather than compressed;
+- [ ] shared interface behavior is consistent;
+- [ ] different traces feel connected by one person;
+- [ ] long-form reading is calm;
+- [ ] no personal facts or imagery have been invented;
+- [ ] the Visual Compass acceptance test passes;
+- [ ] the production build and primary routes pass quality review.
+
+## Outside this rebrand
+
+Do not delay publication for authentication, a database, a CMS, comments, likes,
+advanced search, separate collections for each interest, elaborate animation, a
+newsletter system, recommendations, social features, or an analytics dashboard.
