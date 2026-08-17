@@ -26,7 +26,6 @@ const featuredProject = projects.find((entry) => entry.data.featured) ?? project
 const copy = lang === 'es' ? {
 	title: 'Pabs Life — Un porquito de mi vida',
 	description: 'Aca pobgo lo que voy construyendo, mirando, pensando, aprendiendo o sintiendo.',
-	label: '2026',
 	lineOne: 'Mi',
 	lineTwo: 'Alteridad.',
 	intro: 'Pensamientos, proyectos, películas Y libros.',
@@ -57,7 +56,6 @@ const copy = lang === 'es' ? {
 } : {
 	title: 'Pabs Life — A little bit of my life',
 	description: 'Here I share what I am building, watching, thinking, learning, and feeling.',
-	label: '2026',
 	lineOne: 'My',
 	lineTwo: 'Otherness.',
 	intro: 'Thoughts, projects, films, and books.',
@@ -91,8 +89,6 @@ const copy = lang === 'es' ? {
 <BaseLayout title={copy.title} description={copy.description} {lang} switchHref={lang === 'en' ? '/es' : '/'}>
 	<section class="home-hero">
 		<Container class="hero-layout">
-			<p class="archive-label">{copy.label}</p>
-
 			<div class="hero-statement-wrap">
 				<h1 class="hero-statement">
 					<span>{copy.lineOne}</span>
