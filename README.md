@@ -1,8 +1,8 @@
-# Pabs File
+# Pabs Life
 
 **The connection between everything here is me.**
 
-Pabs File is a personal, creative, constantly evolving archive of the things I
+Pabs Life is a personal, creative, constantly evolving archive of the things I
 build, think, learn, observe, and make. It does not try to present a perfect or
 finished version of me. It preserves traces of the process: projects, films,
 books, food, ideas, experiments, failures, and curiosities that are shaping who

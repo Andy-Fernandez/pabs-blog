@@ -53,6 +53,7 @@ body {
 
 .app-shell {
 	min-height: 100vh;
+	border-top: 3px solid var(--ink);
 	background:
 		radial-gradient(circle at 20% 15%, rgb(7 7 7 / 2.2%) 0 0.7px, transparent 0.8px) 0 0 / 19px 19px,
 		var(--paper);
@@ -370,7 +371,7 @@ select {
 	position: relative;
 	grid-column: 1 / -1;
 	width: min(88%, 430px);
-	margin: var(--space-5) 0 0 auto;
+	margin: var(--space-7) 0 0 auto;
 	padding: 0;
 }
 
@@ -440,20 +441,6 @@ select {
 	margin-block: 0.28rem;
 	font-size: 0.85rem;
 	font-style: normal;
-}
-
-.portrait-badge {
-	position: absolute;
-	right: -0.7rem;
-	bottom: -0.7rem;
-	z-index: 5;
-	border: 1.5px solid var(--ink);
-	border-radius: var(--radius-md);
-	padding: 0.62rem 0.6rem;
-	background: var(--blue-soft);
-	font-size: 0.65rem;
-	font-weight: 700;
-	text-transform: uppercase;
 }
 
 .hero-support {
@@ -1255,7 +1242,7 @@ select {
 	}
 
 	.home-hero {
-		padding-top: var(--space-7);
+		padding-block: 3.5rem var(--space-8);
 	}
 
 	.hero-layout {
@@ -1264,10 +1251,7 @@ select {
 	}
 
 	.hero-statement-wrap {
-		position: relative;
-		display: grid;
-		grid-column: 1 / -1;
-		grid-template-columns: subgrid;
+		display: contents;
 	}
 
 	.hero-statement {
@@ -1278,12 +1262,12 @@ select {
 	}
 
 	.portrait-stage {
-		top: 5rem;
+		top: auto;
 		z-index: auto;
 		grid-column: 8 / -1;
-		grid-row: 1;
+		grid-row: 1 / span 2;
 		width: 100%;
-		margin: 0;
+		margin: var(--space-6) 0 0;
 		align-self: start;
 	}
 
@@ -1293,9 +1277,11 @@ select {
 	}
 
 	.hero-support {
+		grid-column: 1 / -1;
+		grid-row: 2;
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		column-gap: 1.25rem;
-		margin-top: var(--space-6);
+		margin-top: 0;
 	}
 
 	.hero-intro {

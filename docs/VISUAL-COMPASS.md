@@ -1,4 +1,4 @@
-# PABS FILE — Visual Compass
+# Pabs Life — Visual Compass
 
 - **Status:** canonical design and interaction specification
 - **Version:** 0.2
@@ -6,7 +6,7 @@
 - **Content authority:** [Personal Compass](./PERSONAL-COMPASS.md)
 - **Implementation plan:** [Roadmap](./ROADMAP.md)
 
-Use this document to decide how PABS FILE looks, feels, and behaves. Use the
+Use this document to decide how Pabs Life looks, feels, and behaves. Use the
 Personal Compass to decide what belongs and what the site should reveal. Use the
 Roadmap for implementation order and current progress.
 
@@ -41,7 +41,7 @@ content.
 
 ## 1. Identity
 
-PABS FILE is not a conventional portfolio with a blog attached. It is a
+Pabs Life is not a conventional portfolio with a blog attached. It is a
 **living personal archive** where projects, thoughts, films, books, photographs,
 experiments, notes, food, unfinished ideas, and personal reflections can coexist.
 
@@ -141,7 +141,7 @@ remove decoration. Do not shrink a desktop collage until it fits.
 
 The compact header contains:
 
-1. the `PABS FILE` wordmark;
+1. the `Pabs Life` wordmark;
 2. the `EN / ES` language control;
 3. a real menu button with an accessible name and at least a `44 × 44px` target.
 
@@ -509,7 +509,7 @@ Before accepting a screen, confirm:
 - [ ] The result preserves the concept's relationships without copying fixed
   coordinates or its outer presentation frame.
 
-If several answers are no, the design has drifted away from PABS FILE.
+If several answers are no, the design has drifted away from Pabs Life.
 
 ## Direction in one sentence
 
@@ -517,7 +517,7 @@ If several answers are no, the design has drifted away from PABS FILE.
 > monochrome, typographic, tactile, and intentionally unfinished, with disciplined
 > digital structure underneath its analog imperfections.
 
-PABS FILE should never communicate “look how cool my portfolio is.” It should
+Pabs Life should never communicate “look how cool my portfolio is.” It should
 communicate:
 
 > This is what I have been making, seeing, thinking, feeling, and becoming.

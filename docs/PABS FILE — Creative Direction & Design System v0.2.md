@@ -1,4 +1,4 @@
-# PABS FILE — Creative Direction & Design System v0.2 (superseded)
+# Pabs Life — Creative Direction & Design System v0.2 (superseded)
 
 - **Status:** historical source brief
 - **Replaced by:** [Visual Compass](./VISUAL-COMPASS.md)

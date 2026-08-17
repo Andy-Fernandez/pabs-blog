@@ -1,5 +1,5 @@
 ---
-title: "Pabs File"
+title: "Pabs Life"
 description: "Un archivo vivo y hecho a mano para las cosas que construyo, pienso, aprendo, observo y hago. Esta web es su primer artefacto."
 year: 2026
 status: active

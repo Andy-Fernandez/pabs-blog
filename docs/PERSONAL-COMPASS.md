@@ -247,7 +247,7 @@ The Personal Compass answers:
 
 The Visual Compass answers:
 
-> Does this feel like PABS FILE, and is the expression disciplined, readable,
+> Does this feel like Pabs Life, and is the expression disciplined, readable,
 > and human?
 
 If a visually exciting choice misrepresents me, remove it. If an honest piece

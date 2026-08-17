@@ -1,4 +1,4 @@
-# PABS FILE Rebrand Roadmap
+# Pabs Life Rebrand Roadmap
 
 - **Status:** active implementation checklist
 - **Current phase:** Phase 2 — home review
@@ -74,7 +74,7 @@ the related phase is completed.
   width.
 - [x] Verify the shell at narrow mobile, wide mobile, tablet, and desktop widths.
 
-**Done when:** a plain content page already feels like PABS FILE before any collage
+**Done when:** a plain content page already feels like Pabs Life before any collage
 or special home composition is added.
 
 ## Phase 2 — home

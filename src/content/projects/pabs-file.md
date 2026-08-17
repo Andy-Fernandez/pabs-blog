@@ -1,5 +1,5 @@
 ---
-title: "Pabs File"
+title: "Pabs Life"
 description: "A handmade living archive for the things I build, think, learn, observe, and make. This website is its own first artifact."
 year: 2026
 status: active
