@@ -1,0 +1,21 @@
+---
+interface Props {
+	heading: string;
+	note: string;
+	index: string;
+	active?: boolean;
+}
+
+const { heading, note, index, active = false } = Astro.props;
+---
+
+<article class="archive-panel">
+	<header class="panel-header">
+		<div>
+			<h2>{active && <span class="live-dot" aria-hidden="true"></span>}{heading}</h2>
+			<p>{note}</p>
+		</div>
+		<span>{index}</span>
+	</header>
+	<slot />
+</article>
