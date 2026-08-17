@@ -529,12 +529,14 @@ select {
 }
 
 .archive-action.primary {
-	color: var(--paper-pure);
-	background: var(--ink);
+	color: var(--ink);
+	background: linear-gradient(135deg, var(--paper-pure), var(--blue-soft));
+	border-color: var(--ink);
 }
 
 .archive-action.secondary {
-	background: var(--paper);
+	color: var(--paper-pure);
+	background: var(--ink);
 }
 
 .archive-action:hover span {
@@ -542,8 +544,13 @@ select {
 }
 
 .archive-action.secondary:hover {
+	color: var(--ink);
+	background: var(--paper-pure);
+}
+
+.archive-action.primary:hover {
 	color: var(--paper-pure);
-	background: var(--ink);
+	background: linear-gradient(135deg, var(--blue-dark), var(--ink));
 }
 
 .paper-note {

@@ -5,21 +5,21 @@ import PortraitCard from './PortraitCard.astro';
 
 interface Props {
 	archiveHref: string;
-	aboutHref: string;
+	projectsHref: string;
 	copy: {
 		lineOne: string;
 		lineTwo: string;
 		intro: string;
 		secondLine: string;
 		archive: string;
-		about: string;
+		projects: string;
 		portraitAlt: string;
 		stampTop: string;
 		stampBottom: string;
 	};
 }
 
-const { archiveHref, aboutHref, copy } = Astro.props;
+const { archiveHref, projectsHref, copy } = Astro.props;
 ---
 
 <section class="home-hero">
@@ -43,7 +43,7 @@ const { archiveHref, aboutHref, copy } = Astro.props;
 				<p>{copy.secondLine}</p>
 				<div class="hero-actions">
 					<ArchiveAction href={archiveHref} label={copy.archive} variant="primary" />
-					<ArchiveAction href={aboutHref} label={copy.about} />
+					<ArchiveAction href={projectsHref} label={copy.projects} />
 				</div>
 			</div>
 		</div>
