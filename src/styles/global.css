@@ -520,7 +520,8 @@ select {
 	letter-spacing: 0.035em;
 	text-decoration: none;
 	text-transform: uppercase;
-	transition: color var(--motion-base) ease, background var(--motion-base) ease;
+	transition: color var(--motion-base) ease, background var(--motion-base) ease,
+		box-shadow var(--motion-base) ease;
 }
 
 .archive-action span {
@@ -550,7 +551,9 @@ select {
 
 .archive-action.primary:hover {
 	color: var(--paper-pure);
-	background: linear-gradient(135deg, var(--blue-dark), var(--ink));
+	background: var(--ink);
+	border-color: var(--ink);
+	box-shadow: 0 0 0 2px var(--blue);
 }
 
 .paper-note {
