@@ -1,9 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import portraitImage from '../assets/pablo-archive-portrait.png';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArchivePanel from './ArchivePanel.astro';
 import Container from './Container.astro';
+import HomeHero from './HomeHero.astro';
 import { formatDate, journalType, prefixFor, type Lang } from '../lib/i18n';
 
 interface Props {
@@ -25,20 +25,21 @@ const featuredProject = projects.find((entry) => entry.data.featured) ?? project
 
 const copy = lang === 'es' ? {
 	title: 'Pabs Life — Un porquito de mi vida',
-	description: 'Aca pobgo lo que voy construyendo, mirando, pensando, aprendiendo o sintiendo.',
+	description: 'Acá pongo lo que voy construyendo, mirando, pensando, aprendiendo o sintiendo.',
 	lineOne: 'Mi',
 	lineTwo: 'Alteridad.',
-	intro: 'Pensamientos, proyectos, películas Y libros.',
-	secondLine: 'Mi rinconcito para mostrar quien voy siendo.',
-	archive: 'Ultimos sucesos',
+	intro: 'Pensamientos, proyectos, películas y libros.',
+	secondLine: 'Mi rinconcito para mostrar quién voy siendo.',
+	archive: 'Últimos sucesos',
 	about: '¿Quién soy?',
 	portraitAlt: 'Pablo caminando, retratado en blanco y negro.',
-	note: ['MÁS QUÉ UN PORTAFOLIO', 'NO SOLO UN TEMA', 'MUY PERSONAL'],
+	note: ['MÁS QUE UN PORTAFOLIO', 'NO SOLO UN TEMA', 'MUY PERSONAL'],
 	stampTop: 'HECHO POR',
 	stampBottom: 'UN BOLVIANO',
 	identityIndex: '01 / identidad en movimiento',
 	identityTitle: 'Identidad en movimiento',
 	identityBody: 'Explorando quién soy a través de lo que hago, miro, pienso, siento y sigo aprendiendo.',
+	identityCta: 'Conocer más sobre Pablo',
 	currently: 'Ahora mismo',
 	currentlyNote: 'una fotografía breve de agosto de 2026',
 	currentItems: [
@@ -69,6 +70,7 @@ const copy = lang === 'es' ? {
 	identityIndex: '01 / identity in motion',
 	identityTitle: 'Identity in motion',
 	identityBody: 'Exploring who I am through what I make, see, think, feel, and keep learning.',
+	identityCta: 'Learn more about Pablo',
 	currently: 'Currently',
 	currentlyNote: 'a brief picture of August 2026',
 	currentItems: [
@@ -87,54 +89,19 @@ const copy = lang === 'es' ? {
 ---
 
 <BaseLayout title={copy.title} description={copy.description} {lang} switchHref={lang === 'en' ? '/es' : '/'}>
-	<section class="home-hero">
-		<Container class="hero-layout">
-			<div class="hero-statement-wrap">
-				<h1 class="hero-statement">
-					<span>{copy.lineOne}</span>
-					<span>{copy.lineTwo}</span>
-				</h1>
-
-				<div class="portrait-stage">
-					<div class="motion-ring" aria-hidden="true"></div>
-					<div class="portrait-card">
-						<Image
-							class="portrait-image"
-							src={portraitImage}
-							alt={copy.portraitAlt}
-							widths={[360, 520, 720]}
-							sizes="(min-width: 960px) 42vw, (min-width: 720px) 56vw, 82vw"
-							format="webp"
-							loading="eager"
-							fetchpriority="high"
-						/>
-					</div>
-					<span class="human-stamp" aria-hidden="true">
-						<span>{copy.stampTop}</span>
-						<i aria-hidden="true">★</i>
-						<span>{copy.stampBottom}</span>
-					</span>
-				</div>
-			</div>
-
-			<div class="hero-support">
-				<div class="hero-intro">
-					<p>{copy.intro}</p>
-					<p>{copy.secondLine}</p>
-					<div class="hero-actions">
-						<a class="archive-action primary" href={hrefFor('/2026')}>{copy.archive}<span>→</span></a>
-						<a class="archive-action secondary" href={hrefFor('/about')}>{copy.about}<span>→</span></a>
-					</div>
-				</div>
-
-			</div>
-		</Container>
-	</section>
+	<HomeHero
+		{copy}
+		archiveHref={hrefFor('/2026')}
+		aboutHref={hrefFor('/about')}
+	/>
 
 	<section class="identity-section" aria-labelledby="identity-title">
 		<Container class="identity-grid">
 			<div class="identity-card">
 				<div class="identity-orbit" aria-hidden="true"><span></span></div>
+				<a class="identity-link" href={hrefFor('/about')} aria-label={copy.identityCta}>
+					<span aria-hidden="true">↗</span>
+				</a>
 				<p class="module-index">{copy.identityIndex}</p>
 				<h2 id="identity-title">{copy.identityTitle}</h2>
 				<p>{copy.identityBody}</p>
@@ -148,14 +115,12 @@ const copy = lang === 'es' ? {
 
 	<section class="live-archive" aria-label={lang === 'es' ? 'Archivo vivo' : 'Live archive'}>
 		<Container class="live-grid">
-			<article class="archive-panel current-panel">
-				<header class="panel-header">
-					<div>
-						<h2><span class="live-dot" aria-hidden="true"></span>{copy.currently}</h2>
-						<p>{copy.currentlyNote}</p>
-					</div>
-					<span>01</span>
-				</header>
+			<ArchivePanel
+				heading={copy.currently}
+				note={copy.currentlyNote}
+				index="01"
+				active
+			>
 				<dl class="current-list">
 					{copy.currentItems.map(([label, value]) => (
 						<div>
@@ -164,16 +129,13 @@ const copy = lang === 'es' ? {
 						</div>
 					))}
 				</dl>
-			</article>
+			</ArchivePanel>
 
-			<article class="archive-panel recent-panel">
-				<header class="panel-header">
-					<div>
-						<h2>{copy.recent}</h2>
-						<p>{copy.recentNote}</p>
-					</div>
-					<span>02</span>
-				</header>
+			<ArchivePanel
+				heading={copy.recent}
+				note={copy.recentNote}
+				index="02"
+			>
 				<div class="recent-list">
 					{recentEntries.map((entry) => (
 						<a href={journalHref(entry)}>
@@ -185,7 +147,7 @@ const copy = lang === 'es' ? {
 					))}
 				</div>
 				<a class="panel-link" href={hrefFor('/2026')}>{copy.viewAll}<span>→</span></a>
-			</article>
+			</ArchivePanel>
 		</Container>
 	</section>
 

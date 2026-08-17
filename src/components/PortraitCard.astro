@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import portraitImage from '../assets/pablo-archive-portrait.png';
+
+interface Props {
+	alt: string;
+	stampTop: string;
+	stampBottom: string;
+}
+
+const { alt, stampTop, stampBottom } = Astro.props;
+---
+
+<figure class="portrait-stage">
+	<div class="motion-ring" aria-hidden="true"></div>
+	<div class="portrait-card">
+		<Image
+			class="portrait-image"
+			src={portraitImage}
+			alt={alt}
+			widths={[280, 360, 520, 720]}
+			sizes="(min-width: 960px) 40vw, (min-width: 720px) 48vw, 72vw"
+			format="webp"
+			loading="eager"
+			fetchpriority="high"
+		/>
+	</div>
+	<span class="human-stamp" aria-hidden="true">
+		<span>{stampTop}</span>
+		<i>★</i>
+		<span>{stampBottom}</span>
+	</span>
+	<span class="portrait-index" aria-hidden="true">P/26</span>
+</figure>

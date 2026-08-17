@@ -1,0 +1,14 @@
+---
+interface Props {
+	href: string;
+	label: string;
+	variant?: 'primary' | 'secondary';
+}
+
+const { href, label, variant = 'secondary' } = Astro.props;
+---
+
+<a class:list={['archive-action', variant]} {href}>
+	{label}
+	<span aria-hidden="true">→</span>
+</a>

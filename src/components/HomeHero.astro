@@ -1,0 +1,51 @@
+---
+import ArchiveAction from './ArchiveAction.astro';
+import Container from './Container.astro';
+import PortraitCard from './PortraitCard.astro';
+
+interface Props {
+	archiveHref: string;
+	aboutHref: string;
+	copy: {
+		lineOne: string;
+		lineTwo: string;
+		intro: string;
+		secondLine: string;
+		archive: string;
+		about: string;
+		portraitAlt: string;
+		stampTop: string;
+		stampBottom: string;
+	};
+}
+
+const { archiveHref, aboutHref, copy } = Astro.props;
+---
+
+<section class="home-hero">
+	<Container class="hero-layout">
+		<div class="hero-statement-wrap">
+			<h1 class="hero-statement">
+				<span>{copy.lineOne}</span>
+				<span>{copy.lineTwo}</span>
+			</h1>
+
+			<PortraitCard
+				alt={copy.portraitAlt}
+				stampTop={copy.stampTop}
+				stampBottom={copy.stampBottom}
+			/>
+		</div>
+
+		<div class="hero-support">
+			<div class="hero-intro">
+				<p>{copy.intro}</p>
+				<p>{copy.secondLine}</p>
+				<div class="hero-actions">
+					<ArchiveAction href={archiveHref} label={copy.archive} variant="primary" />
+					<ArchiveAction href={aboutHref} label={copy.about} />
+				</div>
+			</div>
+		</div>
+	</Container>
+</section>
