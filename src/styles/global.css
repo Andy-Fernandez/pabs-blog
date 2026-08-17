@@ -1322,9 +1322,6 @@ select {
 	}
 
 	.home-hero {
-		min-height: calc(100vh - 78px);
-		min-height: calc(100svh - 78px);
-		border-bottom: 1.5px solid var(--ink);
 		padding-block: 3.5rem 3rem;
 	}
 
